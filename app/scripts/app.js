@@ -46,11 +46,20 @@ angular
         controller: 'SettingsCtrl',
         controllerAs: 'settings'
       })
+      .when('/reports/:reportID', {
+        templateUrl: 'views/report.html',
+        controller: 'ReportCtrl',
+        controllerAs: 'report'
+      })
+      .when('/newReport', {
+        templateUrl: 'views/newreport.html',
+        controller: 'NewreportCtrl',
+        controllerAs: 'newReport'
+      })
       .otherwise({
         redirectTo: '/'
       });
 
       $locationProvider.html5Mode(true);
-
 
   });

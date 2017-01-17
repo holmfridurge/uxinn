@@ -1,4 +1,9 @@
 <div class="row marketing">
   <h4>My reports</h4>
-  <!-- TO DO LYKKJA MEÐ LINKUM Á PROECTS-->
+  <ul>
+    <li ng-repeat="report in reports track by report.id">
+      <a ng-href = "/reports/{{report.id}}">{{report.name}}</a>
+    </li>
+  </ul>
 </div>
+
