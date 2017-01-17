@@ -21,5 +21,6 @@ angular.module('demo2App')
       {id: 4, name: "Skyrsla4"}
     ];
 
-
+    // COLLAPSE =====================
+    $scope.isCollapsed = false;
   });

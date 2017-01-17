@@ -1,1 +1,63 @@
 <p>{{reportID}}</p>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Roles</a></li>
+      <li><a href="#">Activities</a></li>
+      <li><a href="#">Materials</a></li>
+      <li><a href="#">Environment</a></li>
+      <li><a href="#">Software</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="panel panel-default">
+  <div class="panel-heading">
+  <ul>
+    <li>
+      <a href="#" ng-click="isCollapsedUsers = !isCollapsedUsers">
+      R1 Users
+      </a>
+    </li>
+
+    <div collapse="isCollapsedUsers" ng-show="isCollapsedUsers">
+      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+
+    <li>
+      <a href="#" ng-click="isCollapsedEvaluators = !isCollapsedEvaluators">
+        R2 Evaluators
+      </a>
+    </li>
+
+    <div collapse="isCollapsedEvaluators" ng-show="isCollapsedEvaluators">
+      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+
+    <li>
+      <a href="#" ng-click="isCollapsedObservers = !isCollapsedObservers">
+        R3 Observers
+      </a>
+    </li>
+
+    <div collapse="isCollapsedObservers" ng-show="isCollapsedObservers">
+      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
+
+    <li>
+      <a href="#" ng-click="isCollapsedRecipients = !isCollapsedRecipients">
+        R4 Recipients
+      </a>
+    </li>
+
+    <div collapse="isCollapsedRecipients" ng-show="isCollapsedRecipients">
+      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+      </div>
+      <input>
+    </div>
+
+  </ul>
+  </div>
+
