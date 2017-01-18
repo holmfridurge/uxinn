@@ -1,63 +1,94 @@
-<p>{{reportID}}</p>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Roles</a></li>
-      <li><a href="#">Activities</a></li>
-      <li><a href="#">Materials</a></li>
-      <li><a href="#">Environment</a></li>
-      <li><a href="#">Software</a></li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="styles/bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- MetisMenu CSS -->
+  <link href="styles/bootstrap/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="styles/bootstrap/dist/css/sb-admin-2.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="styles/bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#roles" data-toggle="tab">Roles</a>
+            </li>
+            <li><a href="#activities" data-toggle="tab">Activities</a>
+            </li>
+            <li><a href="#materials" data-toggle="tab">Materials</a>
+            </li>
+            <li><a href="#environment" data-toggle="tab">Environment</a>
+            </li>
+            <li><a href="#software" data-toggle="tab">Software</a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="roles">
+              <h4>Roles Tab</h4>
+              <p>Hér koma spurningar fyrir roles partinn</p>
+            </div>
+            <div class="tab-pane fade" id="activities">
+              <h4>Activities Tab</h4>
+              <p>Hér koma spurningar fyrir activities partinn</p>
+            </div>
+            <div class="tab-pane fade" id="materials">
+              <h4>Materials Tab</h4>
+              <p>Hér koma spurningar fyrir materials partinn</p>
+            </div>
+            <div class="tab-pane fade" id="environment">
+              <h4>Environment Tab</h4>
+              <p>Hér koma spurningar fyrir environment partinn</p>
+            </div>
+            <div class="tab-pane fade" id="software">
+              <h4>Software Tab</h4>
+              <p>Hér koma spurningar fyrir software partinn</p>
+            </div>
+          </div>
+        </div>
+        <!-- /.panel-body -->
+      </div>
+      <!-- /.panel -->
+    </div>
+
   </div>
-</nav>
-<div class="panel panel-default">
-  <div class="panel-heading">
-  <ul>
-    <li>
-      <a href="#" ng-click="isCollapsedUsers = !isCollapsedUsers">
-      R1 Users
-      </a>
-    </li>
+  <!-- /#wrapper -->
 
-    <div collapse="isCollapsedUsers" ng-show="isCollapsedUsers">
-      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
+  <!-- jQuery -->
+  <script src="styles/bootstrap/vendor/jquery/jquery.min.js"></script>
 
-    <li>
-      <a href="#" ng-click="isCollapsedEvaluators = !isCollapsedEvaluators">
-        R2 Evaluators
-      </a>
-    </li>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="styles/bootstrap/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <div collapse="isCollapsedEvaluators" ng-show="isCollapsedEvaluators">
-      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
+  <!-- Metis Menu Plugin JavaScript -->
+  <script src="styles/bootstrap/vendor/metisMenu/metisMenu.min.js"></script>
 
-    <li>
-      <a href="#" ng-click="isCollapsedObservers = !isCollapsedObservers">
-        R3 Observers
-      </a>
-    </li>
+  <!-- Custom Theme JavaScript -->
+  <script src="styles/bootstrap/dist/js/sb-admin-2.js"></script>
 
-    <div collapse="isCollapsedObservers" ng-show="isCollapsedObservers">
-      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-    </div>
+</body>
 
-    <li>
-      <a href="#" ng-click="isCollapsedRecipients = !isCollapsedRecipients">
-        R4 Recipients
-      </a>
-    </li>
-
-    <div collapse="isCollapsedRecipients" ng-show="isCollapsedRecipients">
-      <div class="panel-body">Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-      </div>
-      <input>
-    </div>
-
-  </ul>
-  </div>
-
+</html>

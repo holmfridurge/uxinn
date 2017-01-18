@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name demo2App
+ * @name ramesApp
  * @description
- * # demo2App
+ * # ramesApp
  *
  * Main module of the application.
  */
 angular
-  .module('demo2App', [
+  .module('ramesApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

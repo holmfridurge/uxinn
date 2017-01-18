@@ -1,0 +1,16 @@
+{
+  "name": "uxinnapi",
+  "version": "1.0.0",
+  "description": "Simple API for UXinn web solution using Node.js, Express and MySQL",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Holmfridur G Einarsdottir",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "mysql": "^2.12.0"
+  }
+}
