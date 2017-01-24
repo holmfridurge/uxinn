@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name demo2App.controller:SettingsCtrl
+ * @name ramesApp.controller:SettingsCtrl
  * @description
  * # SettingsCtrl
- * Controller of the demo2App
+ * Controller of the ramesApp
  */
-angular.module('demo2App')
+angular.module('ramesApp')
   .controller('SettingsCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

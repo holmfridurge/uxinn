@@ -250,7 +250,7 @@ module.exports = function (grunt) {
           html: {
             steps: {
               js: ['concat', 'uglifyjs'],
-              css: ['cssmin']
+              //css: ['cssmin']
             },
             post: {}
           }
@@ -343,7 +343,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       dist: {
         options: {
-          module: 'demo2App',
+          module: 'ramesApp',
           htmlmin: '<%= htmlmin.dist.options %>',
           usemin: 'scripts/scripts.js'
         },
@@ -472,6 +472,7 @@ module.exports = function (grunt) {
     'ngAnnotate',
     'copy:dist',
     'cdnify',
+    //'cssmin',
     'uglify',
     'filerev',
     'usemin',

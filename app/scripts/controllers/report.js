@@ -2,16 +2,16 @@
 
 /**
  * @ngdoc function
- * @name demo2App.controller:ReportCtrl
+ * @name ramesApp.controller:ReportCtrl
  * @description
  * # ReportCtrl
- * Controller of the demo2App
+ * Controller of the ramesApp
  */
-angular.module('demo2App')
+angular.module('ramesApp')
   .controller('ReportCtrl', function ($scope, $routeParams) {
     $scope.reportID = $routeParams.reportID;
-    console.log($scope.reportID);
-    console.log($routeParams.reportID);
+    /*console.log($scope.reportID);
+      console.log($routeParams.reportID);*/
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

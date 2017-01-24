@@ -5,6 +5,36 @@
   padding: 0.2em 0;
 }
 
+.noBullets{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.roles, .roles:hover, .roles:visited, .roles:active, .roles:link{
+  color: black;
+  text-decoration: none;
+  font-size: medium;
+}
+
+.makeBorder{
+  border: 1.5px solid black;
+  padding: 5px;
+  margin-top: 10px;
+  margin-left: -40px;
+  border-radius: 5px;
+  width: 700px;
+  display: inline;
+
+}
+
+.indent {
+  margin-left: 20px;
+}
+
+.panel-body{
+  background-color: white;
+}
+
 body {
   padding: 0;
 }
@@ -30,6 +60,9 @@ body {
   padding-bottom: 19px;
 }
 
+#wrapper{
+  width: 200%;
+}
 /* Custom page footer */
 .footer {
   padding-top: 19px;
