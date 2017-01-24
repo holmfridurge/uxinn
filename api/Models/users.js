@@ -1,11 +1,39 @@
 var connection = require('../connection');
- 
+
+// READY BUT NEEDS TO TEST BETTER
+
 function User() {
     this.get = function(res) {
     connection.acquire(function(err, con) {
       con.query('select * from users', function(err, result) {
         con.release();
         res.send(result);
+      });
+    });
+  };
+
+  this.getUserByID = function(id, res) {
+    connection.acquire(function(err, con) {
+      con.query('select * from users where id = ?', [id], function(err, result) {
+        con.release();
+        if (err) {
+          res.send({status: 1, message: 'Failed to get user by id'});
+        } else {
+          res.send(result);
+        }
+      });
+    });
+  };
+
+  this.getUserByToken = function(token, res) {
+    connection.acquire(function(err, con) {
+      con.query('select * from users where token = ?', [token], function(err, result) {
+        con.release();
+        if (err) {
+          res.send({status: 1, message: 'Failed to get user by id'});
+        } else {
+          res.send(result);
+        }
       });
     });
   };
