@@ -10,56 +10,55 @@
  */
 angular
   .module('ramesApp', [
-    'ngAnimate',
-    'ngCookies',
-    'ngResource',
+//   'ngAnimate',
+//    'ngCookies',
+//    'ngResource',
     'ngRoute',
-    'ngSanitize',
-    'ngTouch'
+//    'ngSanitize',
+//    'ngTouch'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider) {
 
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        controller: 'MainCtrl'
+        //controllerAs: 'main'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
-        controller: 'AboutCtrl',
-        controllerAs: 'about'
+        controller: 'AboutCtrl'
+        //controllerAs: 'about'
       })
 
       .when('/aboutCreator', {
         templateUrl: 'views/aboutcreator.html',
-        controller: 'AboutcreatorCtrl',
-        controllerAs: 'aboutCreator'
+        controller: 'AboutcreatorCtrl'
+        //controllerAs: 'aboutCreator'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
-        controller: 'ContactCtrl',
-        controllerAs: 'contact'
+        controller: 'ContactCtrl'
+        //controllerAs: 'contact'
       })
       .when('/settings', {
         templateUrl: 'views/settings.html',
-        controller: 'SettingsCtrl',
-        controllerAs: 'settings'
+        controller: 'SettingsCtrl'
+        //controllerAs: 'settings'
       })
       .when('/reports/:reportID', {
         templateUrl: 'views/report.html',
-        controller: 'ReportCtrl',
-        controllerAs: 'report'
+        controller: 'ReportCtrl'
+        //controllerAs: 'report'
       })
       .when('/newReport', {
         templateUrl: 'views/newreport.html',
-        controller: 'NewreportCtrl',
-        controllerAs: 'newReport'
+        controller: 'NewreportCtrl'
+        //controllerAs: 'newReport'
       })
       .otherwise({
         redirectTo: '/'
       });
 
-      $locationProvider.html5Mode(true);
 
   });

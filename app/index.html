@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="ramesApp">
 
 <head>
   <meta charset="utf-8">
@@ -19,12 +19,13 @@
   <!-- Custom Fonts -->
   <link href="styles/bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="styles/bootstrap/vendor/bootstrap/bootstrap.css" rel="stylesheet" type="text/css">
-
+  
   <base href="/">
+
   <!-- endbuild -->
 </head>
 
-<body ng-app="ramesApp">
+<body>
   <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -39,24 +40,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-  <a class="navbar-brand" href="index.html">UXinn</a>
+  <a class="navbar-brand" href="/">UXinn</a>
 </div>
 <!-- /.navbar-header -->
 
 <ul class="nav navbar-top-links navbar-right">
-  <li class="active"><a href="/">My Reports</a></li>
-  <li><a ng-href="about">About RAMES</a></li>
-  <li><a ng-href="aboutCreator">About the creator</a></li>
-  <li><a ng-href="contact">Contact us</a></li>
-  <li><a ng-href="settings">Settings</a></li>
-  <li><a ng-href="#/">Log Out</a></li>
+  <li class="active"><a href="#/">My Reports</a></li>
+  <li><a href="#about">About RAMES</a></li>
+  <li><a href="aboutCreator">About the creator</a></li>
+  <li><a href="contact">Contact us</a></li>
+  <li><a href="settings">Settings</a></li>
+  <li><a href="#">Log Out</a></li>
 </ul>
 <!-- /.navbar-top-links -->
 </nav>
 
 <div class="container" id="reports">
 
-  <div ng-view=""></div>
+  <div ng-view></div>
 </div>
 
 <div class="footer">
