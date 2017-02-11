@@ -8,7 +8,7 @@
  * Controller of the ramesApp
  */
 angular.module('ramesApp')
-  .controller('MainCtrl', function ($scope, $location) {
+  .controller('MainCtrl', function ($scope, $location, $http) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -20,6 +20,11 @@ angular.module('ramesApp')
       {id: 3, name: "Skyrsla3"},
       {id: 4, name: "Skyrsla4"}
     ];
+
+    $http.get("http://localhost:8000/api/user")
+      .then(function(response){ $scope.users = response.data; });
+
+    //console.log(JSON.parse($scope.users));
 
     // COLLAPSE =====================
     $scope.isCollapsed = false;
