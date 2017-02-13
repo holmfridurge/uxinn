@@ -21,7 +21,8 @@ angular
 
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        // front page = views/main.html
+        templateUrl: 'views/report.html',
         controller: 'MainCtrl'
         //controllerAs: 'main'
       })

@@ -171,6 +171,11 @@ module.exports = {
     // --------------------------------------------
     // ---------------- reports -------------------
     // --------------------------------------------
+    
+    // Returns a list of all categories
+    app.get('/api/reports/', function(req, res) {
+      report.get(res);
+    });
 
     // Returns the info of a user with the given id
     app.get('/api/reports/:id/', function(req, res) {
@@ -179,7 +184,7 @@ module.exports = {
 
     // Returns the reports of a user with the given ID
     app.get('/api/reports/user/:userID/', function(req, res) {
-      report.getReportsByUserID(req.params.token, res);
+      report.getReportsByUserID(req.params.userID, res);
     });
 
     // Returns the reports of a user with the given id and of the report type with the given report type id
