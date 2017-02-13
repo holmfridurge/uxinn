@@ -28,4 +28,9 @@ angular.module('ramesApp')
 
     // COLLAPSE =====================
     $scope.isCollapsed = false;
+
+    $('.makeBorder').click(function () {
+      console.log('in function');
+      ('#roles{{report.id}}').click();
+    })
   });

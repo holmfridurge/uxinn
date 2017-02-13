@@ -17,9 +17,10 @@ angular
 //    'ngSanitize',
 //    'ngTouch'
   ])
-  .config(function ($routeProvider) {
-
-    $routeProvider
+  .config(function ($routeProvider, $locationProvider) {
+  console.log('foobar');
+  $locationProvider.hashPrefix('');
+  $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
@@ -59,6 +60,7 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+
 
 
   });

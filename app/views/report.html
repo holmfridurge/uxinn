@@ -38,7 +38,7 @@
           <ul class="nav nav-tabs">
             <li class="active"><a href="#roles" data-toggle="tab">Roles</a>
             </li>
-            <li><a href="#activities" data-toggle="tab">Activities</a>
+            <li><a ng-href="#activities" data-toggle="tab">Activities</a>
             </li>
             <li><a href="#materials" data-toggle="tab">Materials</a>
             </li>
@@ -56,17 +56,17 @@
                 <div class="panel-heading">
                   <ul class="noBullets">
                     <li>
-                      <a class="roles" href="#" ng-click="isCollapsedUsers = !isCollapsedUsers">
+                      <a class="roles" ng-click="isCollapsedUsers = !isCollapsedUsers">
                         R1 Users
                       </a>
                     </li>
 
                     <div collapse="isCollapsedUsers" ng-show="isCollapsedUsers">
                       <div class="panel-body">
-                        <p class="usersExpl" ng-show="usersExpl">Users are the participants that take part in the evaluation. The participants can be actual users, expected actual users of the IT system, or user surrogates (meaning participants who will not be using the system, but during the evaluation they will play the role of users). In analytical evaluation, users do not participate, but the evaluator should have their characteristics in mind while evaluating.</p>
                         <button class="btn btn-default btn-xs" ng-click="usersExpl = !usersExpl">
-                        <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </button>
+                        <div class="usersExpl" ng-show="usersExpl"><h5>Explanation</h5>Users are the participants that take part in the evaluation. The participants can be actual users, expected actual users of the IT system, or user surrogates (meaning participants who will not be using the system, but during the evaluation they will play the role of users). In analytical evaluation, users do not participate, but the evaluator should have their characteristics in mind while evaluating.<h5>Advise 1</h5>Conducting evaluation with users, could range from asking 2 or 3 users to participate to asking over 10 people. Many researchers give the advice that 5 users are enough for finding 80% of the usability problems in the system (eg. Falkner, 20031). The suggested number of participants depends highly on the goal of the testing, the individual differences between the test users, the tool tested, and the tasks performed during testing. <h5>Advise 2</h5>Conducting user evaluations with representative users is recommended. According the Bygstad et al. (2008)1 evaluations conducted with arbitrary selected users or employees are concidered to be less important by the recipients of the evaluation results.</div>
                         <p>1. How many users will be included?</p>
                         <select class="selectpicker">
                           <option>1</option>
@@ -90,17 +90,17 @@
                     </div>
 
                     <li>
-                      <a href="#" class="roles" ng-click="isCollapsedEvaluators = !isCollapsedEvaluators">
+                      <a class="roles" ng-click="isCollapsedEvaluators = !isCollapsedEvaluators">
                         R2 Evaluators
                       </a>
                     </li>
 
                     <div collapse="isCollapsedEvaluators" ng-show="isCollapsedEvaluators">
                       <div class="panel-body">
-                        <p class="evalExpl" ng-show="evalExpl">The evaluator plans the evaluation, conducts it, and has a major role while analysing the data to describe the results from the evaluation. During the evaluation, the evaluator manages the different activities and keeps track of what happens during the evaluation. The activities, that the evaluator conducts depends on the chosen evaluation method.</p>
                         <button class="btn btn-default btn-xs" ng-click="evalExpl = !evalExpl">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </button>
+                        <div class="evalExpl" ng-show="evalExpl"><h5>Explanation</h5>The evaluator plans the evaluation, conducts it, and has a major role while analysing the data to describe the results from the evaluation. During the evaluation, the evaluator manages the different activities and keeps track of what happens during the evaluation. The activities, that the evaluator conducts depends on the chosen evaluation method. <h5>Advise 1</h5>The outcome of the evaluation depend on the knowledge and experience of the evaluators. Molich et al. 1 showed that the assumption that if evaluators use the same method they will obtain the same results is plainly wrong. In their study of nine industrial organizations, the evaluators found 310 different usability problems in total and only two problems were reported by six or more organizations, while 75% of the problems were uniquely reported. Hertzum and Jacobsen2 state that it is important that the evaluators have necessary knowledge of the factors involved in the evaluations, particularly the evaluation method used and the users’ tasks.<h5>Advise 2</h5>The same advice will be used as for the number of evaluators.</div>
                         <p>
                         1. How many evaluators will be included?</p>
                         <select>
@@ -127,17 +127,17 @@
                     </div>
 
                     <li>
-                      <a href="#" class="roles" ng-click="isCollapsedObservers = !isCollapsedObservers">
+                      <a class="roles" ng-click="isCollapsedObservers = !isCollapsedObservers">
                         R3 Observers
                       </a>
                     </li>
 
                     <div collapse="isCollapsedObservers" ng-show="isCollapsedObservers">
                       <div class="panel-body">
-                        <p class="obsExpl" ng-show="obsExpl">The observers are persons that do not interact with the participants in an evaluation, but observe what happens. Sometimes IT professionals and representatives from the client observe when a user evaluation is conducted and sometimes the observers are note takers and take part in discussing the outcome of the evaluation. That experience can give valuable information for deciding how to react to the results of the evaluation.</p>
                         <button class="btn btn-default btn-xs" ng-click="obsExpl = !obsExpl">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </button>
+                        <div class="obsExpl" ng-show="obsExpl"><h5>Explanation</h5>The observers are persons that do not interact with the participants in an evaluation, but observe what happens. Sometimes IT professionals and representatives from the client observe when a user evaluation is conducted and sometimes the observers are note takers and take part in discussing the outcome of the evaluation. That experience can give valuable information for deciding how to react to the results of the evaluation.<h5>Advise 1</h5>There are mainly two types of observers, those taking notes during the evaluation and thereby assisting with the evaluation process and those observing for learning about the usage of the system they are involved in developing. Having observers taking notes is advised, if there is not much recording done in the evaluation. Also it can be valuable for the evaluator to discuss the observed usage of the system with the note taker. Inviting developers to observe user testing can extend their understanding of the usage of the system vastly.<h5>Advise 2</h5>The same advice will be used as for the number of evaluators.</div>
                         <p>
                           1. How many observers will be included?
                         </p>
@@ -159,17 +159,17 @@
                     </div>
 
                     <li>
-                      <a href="#" class="roles" ng-click="isCollapsedRecipients = !isCollapsedRecipients">
+                      <a class="roles" ng-click="isCollapsedRecipients = !isCollapsedRecipients">
                         R4 Recipients
                       </a>
                     </li>
 
                     <div collapse="isCollapsedRecipients" ng-show="isCollapsedRecipients">
                       <div class="panel-body">
-                        <p class="recipExpl" ng-show="recipExpl">Recipients are the ones that receive the results of the evaluation. It depends on the evaluation purpose what the roles of the IT professionals receiving the results from the evaluation are. Sometimes it is the evaluator who conducted the evaluation that uses the results and decided actions. At other times, the results are handed over to persons, having a different role, who decided how to respond to the results of the evaluation.</p>
                         <button class="btn btn-default btn-xs" ng-click="recipExpl = !recipExpl">
                           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
                         </button>
+                        <div class="recipExpl" ng-show="recipExpl"><h5>Explanation</h5>Recipients are the ones that receive the results of the evaluation. It depends on the evaluation purpose what the roles of the IT professionals receiving the results from the evaluation are. Sometimes it is the evaluator who conducted the evaluation that uses the results and decided actions. At other times, the results are handed over to persons, having a different role, who decided how to respond to the results of the evaluation.<h5>Advise 1</h5>Recipients are the ones that receive the results of the evaluation. It depends on the evaluation purpose what the roles of the IT professionals receiving the results from the evaluation are. Sometimes it is the evaluator who conducted the evaluation that uses the results and decided actions. At other times, the results are handed over to persons, having a different role, who decided how to respond to the results of the evaluation.</div>
                         <p>
                           1. Who are the recipients?
                         </p>
