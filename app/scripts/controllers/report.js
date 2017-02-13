@@ -9,6 +9,8 @@
  */
 angular.module('ramesApp')
   .controller('ReportCtrl', function ($scope, $routeParams) {
+    console.log('Inside controller');
+    console.log($routeParams);
     $scope.reportID = $routeParams.reportID;
     /*console.log($scope.reportID);
       console.log($routeParams.reportID);*/

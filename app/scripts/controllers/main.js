@@ -21,7 +21,7 @@ angular.module('ramesApp')
     
     $http.get("http://localhost:8000/api/reports/user/" + userID + "/")
       .then(function(response) { 
-        $scope.reportsOfUser = response.data;
+        $scope.reports = response.data;
       });
     /*$http.get("http://localhost:8000/api/user")
       .then(function(response){ $scope.users = response.data; });*/
@@ -29,4 +29,9 @@ angular.module('ramesApp')
 
     // COLLAPSE =====================
     $scope.isCollapsed = false;
+
+    $('.makeBorder').click(function () {
+      console.log('in function');
+      ('#roles{{report.id}}').click();
+    })
   });
