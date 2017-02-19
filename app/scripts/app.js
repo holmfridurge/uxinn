@@ -23,7 +23,7 @@ angular
   $routeProvider
       .when('/', {
         // front page = views/main.html
-        templateUrl: 'views/report.html',
+        templateUrl: 'views/main.html',
         controller: 'MainCtrl'
         //controllerAs: 'main'
       })

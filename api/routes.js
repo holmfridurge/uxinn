@@ -24,7 +24,17 @@ module.exports = {
     app.get('/api/user/:id/', function(req, res) {
       user.getUserByID(req.params.id, res);
     });
-
+    /**
+      {
+        Username: string,
+        Token: string,
+        Name: string,
+        Email: string,
+        Role: string,
+        Temptoken: string,
+        Reports_ID
+      }
+     */
     // Adds a new user to the database
     app.post('/api/user/', function(req, res) {
       user.create(req.body, res);
@@ -100,6 +110,12 @@ module.exports = {
       ramesQuestion.getRamesQuestionByID(req.params.id, res);
     });
 
+    // Create the route '/api/ramesquestion/:id/category/:categoryID. 
+    // Returns a given rames question in the given category
+
+    // Create the route '/api/ramesquestion/:id/language/:languageID.
+    // Returns a given rames question in the given language.
+
     app.get('/api/ramesquestion/category/:categoryId', function(req, res) {
       ramesQuestion.getRamesQuestionByCategoryID(req.params.categoryId, res);
     });
@@ -172,12 +188,12 @@ module.exports = {
     // ---------------- reports -------------------
     // --------------------------------------------
     
-    // Returns a list of all categories
+    // Returns a list of all reports
     app.get('/api/reports/', function(req, res) {
       report.get(res);
     });
 
-    // Returns the info of a user with the given id
+    // Returns a report with the given id.
     app.get('/api/reports/:id/', function(req, res) {
       report.getReportByID(req.params.id, res);
     });

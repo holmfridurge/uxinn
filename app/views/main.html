@@ -28,19 +28,24 @@
 <body>
   <div class="row marketing">
     <h4>My reports</h4>
-      <ul ng-repeat="report in reports track by report.id">
-        <div class="makeBorder"><a id="roles{{report.id}}" class="roles" ng-href = "#/reports/{{report.id}}">{{report.name}}</a></div>
-        <button class="btn btn-default frontpage btn-xs" ng-click="changeReport()">
-          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        </button>
-        <button class="btn btn-default frontpage btn-xs" ng-click="deleteReport()">
-          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-        </button>
-    </ul>
-  </div>
-  <div>
-    <p class="makeBorder"><a class="roles" ng-href="#newReport">New report</a></p>
-  </div>
+      <div ng-if="reports != ''">
+        <ul ng-repeat="report in reports track by report.ID">
+          <div class="makeBorder"><a id="roles{{report.ID}}" class="roles" ng-href = "#/reports/{{report.ID}}">{{report.Name}}</a></div>
+          <a ng-href = "#/reports/{{report.ID}}"><button class="btn btn-default frontpage btn-xs" >
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+          </button></a>
+          <button class="btn btn-default frontpage btn-xs" ng-click="deleteReport(report.ID)">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+          </button>
+        </div>
+      </ul>
+    </div>
+    <div ng-if="reports == ''">
+      <p>There are no reports to display.<p>
+    </div>
+  <a ng-href="#/newReport"><button class="btn btn-default frontpage btn-xs" ng-click="deleteReport()">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  </button></a>
 
 </body>
 

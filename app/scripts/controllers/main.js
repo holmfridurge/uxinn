@@ -17,14 +17,29 @@ angular.module('ramesApp')
 
     // On sign in, add token to header. Retrieve token and 
     // User id. Should be retrieved from the header.
-    var userID = 1;
-    
+    var userID = 2;
+
     $http.get("http://localhost:8000/api/reports/user/" + userID + "/")
-      .then(function(response) { 
+      .then(function (response) {
         $scope.reports = response.data;
       });
-    /*$http.get("http://localhost:8000/api/user")
-      .then(function(response){ $scope.users = response.data; });*/
+
+    $scope.refresh = function () {
+      $http.get("http://localhost:8000/api/reports/user/" + userID + "/")
+        .then(function (response) {
+          $scope.reports = response.data;
+        });
+    }
+
+    $scope.deleteReport = function (id) {
+      $http.delete("http://localhost:8000/api/reports/" + id)
+        .then(function (response) {
+          console.log("Success");
+          $scope.refresh();
+        }, function (response) {
+          console.log("Error, something bad happened");
+        });
+    }
 
 
     // COLLAPSE =====================
