@@ -10,12 +10,7 @@
  */
 angular
   .module('ramesApp', [
-//   'ngAnimate',
-//    'ngCookies',
-//    'ngResource',
     'ngRoute',
-//    'ngSanitize',
-//    'ngTouch'
   ])
   .config(function ($routeProvider, $locationProvider) {
   console.log('foobar');

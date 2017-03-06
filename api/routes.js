@@ -152,6 +152,11 @@ module.exports = {
       ramesCategory.getRamesCategoryByID(req.params.id, res);
     });
 
+    // Returns the category with the given id
+    app.get('/api/ramescategory/ordered/sequenceNumber', function(req, res) {
+      ramesCategory.getOrderedCategory(res);
+    });
+
     // Returns all categories with given language
     app.get('/api/ramescategory/language/:languageid/', function(req, res) {
       ramesCategory.getAllRamesCategoryByLanguageID(req.params.languageid, res);

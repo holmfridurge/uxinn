@@ -19,7 +19,7 @@ function RamesQuestions() {
       con.query('select * from rames_questions where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames question by id'});
+          res.send({status: 404, message: 'Failed to get the rames question by id'});
         } else {
           res.send(result);
         }
@@ -33,7 +33,7 @@ function RamesQuestions() {
       con.query('select * from rames_questions where categoryID = ?', [categoryID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames question by category id'});
+          res.send({status: 404, message: 'Failed to get the rames question by category id'});
         } else {
           res.send(result);
         }
@@ -47,7 +47,7 @@ function RamesQuestions() {
       con.query('select * from rames_questions where languageID = ?', [languageID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames question by language id'});
+          res.send({status: 404, message: 'Failed to get the rames question by language id'});
         } else {
           res.send(result);
         }
@@ -61,9 +61,9 @@ function RamesQuestions() {
       con.query('insert into rames_questions set ?', report, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Rames question creation failed'});
+          res.send({status: 412, message: 'Rames question creation failed'});
         } else {
-          res.send({status: 0, message: 'Rames question created successfully'});
+          res.send({status: 200, message: 'Rames question created successfully'});
         }
       });
     });
@@ -75,9 +75,9 @@ function RamesQuestions() {
       con.query('update rames_questions set ? where id = ?', [report, report.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Rames question update failed'});
+          res.send({status: 412, message: 'Rames question update failed'});
         } else {
-          res.send({status: 0, message: 'Rames question updated successfully'});
+          res.send({status: 200, message: 'Rames question updated successfully'});
         }
       });
     });
@@ -89,9 +89,9 @@ function RamesQuestions() {
       con.query('delete from rames_questions where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 404, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 200, message: 'Deleted successfully'});
         }
       });
     });

@@ -1,3 +1,50 @@
-<body>
-    
-</body>
+<div ng-app="ramesApp" ng-controller="NewreportCtrl">
+  <form novalidate>
+    <div class="just-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+
+            <div class="form-group">
+              <label>Report Name:</label>
+              <input class="form-control" type="text" />
+            </div>
+            <ul ng-repeat="category in categories">
+              <label>{{category.category}}</label>
+
+              <ul ng-repeat="info in ramesinfo">
+                <ul ng-if="info.CategoryID == category.ID">
+                  <label>{{info.Name}}</label>
+                  <ul ng-repeat="question in questions">
+                    <ul ng-if="question.RamesInfoID == info.ID">
+                      <label>{{question.QuestionNr}}. {{question.Question}}</label>
+                      <ul ng-if="question.Type == 'num'">
+                        <div class="form-group">
+                          <input type="number" class="form-control">
+                        </div>
+                      </ul>
+                      <ul ng-if="question.Type == 'text'">
+                        <div class="form-group">
+                          <textarea class="form-control" rows="5"></textarea>
+                        </div>
+                      </ul>
+                      <ul ng-if="question.Type == 'yesno'">
+                        <input type="radio" value='y'> Yes
+                        <input type="radio" value='n'> No
+                      </ul>
+                    </ul>
+                  </ul>
+                </ul>
+              </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
+            <a class="btn btn-info btn-lg">Save</a><br>
+            <a class="btn btn-info btn-lg">Preview</a><br>
+            <a class="btn btn-info btn-lg">Back to list</a><br>
+            <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

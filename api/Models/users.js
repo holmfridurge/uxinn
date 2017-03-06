@@ -17,7 +17,7 @@ function User() {
       con.query('select * from users where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get user by id'});
+          res.send({status: 404, message: 'Failed to get user by id'});
         } else {
           res.send(result);
         }
@@ -30,7 +30,7 @@ function User() {
       con.query('select * from users where token = ?', [token], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get user by id'});
+          res.send({status: 404, message: 'Failed to get user by token'});
         } else {
           res.send(result);
         }
@@ -43,9 +43,9 @@ function User() {
       con.query('insert into users set ?', user, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'User creation failed'});
+          res.send({status: 412, message: 'User creation failed'});
         } else {
-          res.send({status: 0, message: 'User created successfully'});
+          res.send({status: 200, message: 'User created successfully'});
         }
       });
     });
@@ -56,9 +56,9 @@ function User() {
       con.query('update users set ? where id = ?', [user, user.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'User update failed'});
+          res.send({status: 412, message: 'User update failed'});
         } else {
-          res.send({status: 0, message: 'User updated successfully'});
+          res.send({status: 200, message: 'User updated successfully'});
         }
       });
     });
@@ -69,9 +69,9 @@ function User() {
       con.query('delete from users where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 404, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 200, message: 'Deleted successfully'});
         }
       });
     });

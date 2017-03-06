@@ -19,7 +19,7 @@ function RamesInfo() {
       con.query('select * from rames_info where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames information by id'});
+          res.send({status: 404, message: 'Failed to get the rames information by id'});
         } else {
           res.send(result);
         }
@@ -33,7 +33,7 @@ function RamesInfo() {
       con.query('select * from rames_info where categoryID = ?', [categoryID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames information by category id'});
+          res.send({status: 404, message: 'Failed to get the rames information by category id'});
         } else {
           res.send(result);
         }
@@ -47,7 +47,7 @@ function RamesInfo() {
       con.query('select * from rames_info where languageID = ?', [languageID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the rames information by language id'});
+          res.send({status: 404, message: 'Failed to get the rames information by language id'});
         } else {
           res.send(result);
         }
@@ -61,9 +61,9 @@ function RamesInfo() {
       con.query('insert into rames_info set ?', report, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Rames information creation failed'});
+          res.send({status: 412, message: 'Rames information creation failed'});
         } else {
-          res.send({status: 0, message: 'Rames information created successfully'});
+          res.send({status: 200, message: 'Rames information created successfully'});
         }
       });
     });
@@ -75,9 +75,9 @@ function RamesInfo() {
       con.query('update rames_info set ? where id = ?', [report, report.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Rames information update failed'});
+          res.send({status: 412, message: 'Rames information update failed'});
         } else {
-          res.send({status: 0, message: 'Rames information updated successfully'});
+          res.send({status: 200, message: 'Rames information updated successfully'});
         }
       });
     });
@@ -89,9 +89,9 @@ function RamesInfo() {
       con.query('delete from rames_info where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 404, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 200, message: 'Deleted successfully'});
         }
       });
     });

@@ -11,13 +11,13 @@ angular.module('ramesApp')
   .controller('AboutCtrl', function ($scope, $location) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
+      {id: 3, name: "Skyrsla10"},
       'AngularJS',
       'Karma'
     ];
     $scope.reports = [
       {id: 1, name: "Skyrsla8"},
       {id: 2, name: "Skyrsla9"},
-      {id: 3, name: "Skyrsla10"},
       {id: 4, name: "Skyrsla11"}
     ];
 

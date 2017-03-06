@@ -19,7 +19,7 @@ function ReportsInfo() {
       con.query('select * from reports_info where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the report information by id'});
+          res.send({status: 404, message: 'Failed to get the report information by id'});
         } else {
           res.send(result);
         }
@@ -33,7 +33,7 @@ function ReportsInfo() {
       con.query('select * from reports_info where reportID = ?', [reportID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the report information by report id'});
+          res.send({status: 404, message: 'Failed to get the report information by report id'});
         } else {
           res.send(result);
         }
@@ -47,7 +47,7 @@ function ReportsInfo() {
       con.query('select * from reports_info where questionID = ?', [questionID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get the report information by question id'});
+          res.send({status: 404, message: 'Failed to get the report information by question id'});
         } else {
           res.send(result);
         }
@@ -61,7 +61,7 @@ function ReportsInfo() {
       con.query('select * from reports_info where reportid = ? and questionid = ?', [data.reportID, data.questionID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get reports by report id and question id'});
+          res.send({status: 404, message: 'Failed to get reports by report id and question id'});
         } else {
           res.send(result);
         }
@@ -75,9 +75,9 @@ function ReportsInfo() {
       con.query('insert into reports_info set ?', report, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Report information creation failed'});
+          res.send({status: 412, message: 'Report information creation failed'});
         } else {
-          res.send({status: 0, message: 'Report information created successfully'});
+          res.send({status: 200, message: 'Report information created successfully'});
         }
       });
     });
@@ -89,9 +89,9 @@ function ReportsInfo() {
       con.query('update reports_info set ? where id = ?', [report, report.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Report information update failed'});
+          res.send({status: 412, message: 'Report information update failed'});
         } else {
-          res.send({status: 0, message: 'Report information updated successfully'});
+          res.send({status: 200, message: 'Report information updated successfully'});
         }
       });
     });
@@ -103,9 +103,9 @@ function ReportsInfo() {
       con.query('delete from reports_info where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 412, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 200, message: 'Deleted successfully'});
         }
       });
     });

@@ -19,7 +19,7 @@ function Report() {
       con.query('select * from reports where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get report by id'});
+          res.send({status: 404, message: 'Failed to get report by id'});
         } else {
           res.send(result);
         }
@@ -33,7 +33,7 @@ function Report() {
       con.query('select * from reports where userid = ?', [userID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get user by id'});
+          res.send({status: 404, message: 'Failed to get user by id'});
         } else {
           res.send(result);
         }
@@ -47,7 +47,7 @@ function Report() {
       con.query('select * from reports where userid = ? and reporttypeid = ?', [data.userID, data.reportTypeID], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to get reports by user id and report type id'});
+          res.send({status: 404, message: 'Failed to get reports by user id and report type id'});
         } else {
           res.send(result);
         }
@@ -60,9 +60,9 @@ function Report() {
       con.query('insert into reports set ?', report, function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Report creation failed'});
+          res.send({status: 412, message: 'Report creation failed'});
         } else {
-          res.send({status: 0, message: 'Report created successfully'});
+          res.send({status: 200, message: 'Report created successfully'});
         }
       });
     });
@@ -73,9 +73,9 @@ function Report() {
       con.query('update reports set ? where id = ?', [report, report.id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Report update failed'});
+          res.send({status: 412, message: 'Report update failed'});
         } else {
-          res.send({status: 0, message: 'Report updated successfully'});
+          res.send({status: 200, message: 'Report updated successfully'});
         }
       });
     });
@@ -86,9 +86,9 @@ function Report() {
       con.query('delete from reports where id = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({status: 1, message: 'Failed to delete'});
+          res.send({status: 404, message: 'Failed to delete'});
         } else {
-          res.send({status: 0, message: 'Deleted successfully'});
+          res.send({status: 200, message: 'Deleted successfully'});
         }
       });
     });
