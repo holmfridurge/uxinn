@@ -7,11 +7,11 @@
 
             <div class="form-group">
               <label>Report Name:</label>
-              <input class="form-control" type="text" />
+              {{reportName.name}}
+              <input ng-model="reportName.name" class="form-control" type="text" />
             </div>
             <ul ng-repeat="category in categories">
               <label>{{category.category}}</label>
-
               <ul ng-repeat="info in ramesinfo">
                 <ul ng-if="info.CategoryID == category.ID">
                   <label>{{info.Name}}</label>
@@ -20,17 +20,21 @@
                       <label>{{question.QuestionNr}}. {{question.Question}}</label>
                       <ul ng-if="question.Type == 'num'">
                         <div class="form-group">
-                          <input type="number" class="form-control">
+                          {{reportInfo | json}}
+                          <input ng-model="reportInfo.Answer[question.ID]" type="number" class="form-control">
+                          <!--<input type="hidden" ng-model="reportInfo.QuestionID" ng-init="reportInfo.QuestionID=question.ID"/>-->
                         </div>
                       </ul>
                       <ul ng-if="question.Type == 'text'">
                         <div class="form-group">
-                          <textarea class="form-control" rows="5"></textarea>
+                          {{reportInfo | json}}
+                          <textarea ng-model="reportInfo.Answer[question.ID]" class="form-control" rows="5"></textarea>
                         </div>
                       </ul>
+                      {{reportInfo | json}}
                       <ul ng-if="question.Type == 'yesno'">
-                        <input type="radio" value='y'> Yes
-                        <input type="radio" value='n'> No
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='y'> Yes
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='n'> No
                       </ul>
                     </ul>
                   </ul>
@@ -38,18 +42,14 @@
               </ul>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a class="btn btn-info btn-lg">Save</a><br>
+            <a class="btn btn-info btn-lg" ng-click="save(reportName)">Save</a><br>
             <a class="btn btn-info btn-lg">Preview</a><br>
             <a class="btn btn-info btn-lg">Back to list</a><br>
             <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
-
-            <!--<input type="submit" value="Save"><br>
-            <input type="submit" value="Preview"><br>
-            <input type="submit" value="Back to list"><br>
-            <input type="submit" value="Cancel"><br>-->
           </div>
         </div>
       </div>
     </div>
   </form>
 </div>
+

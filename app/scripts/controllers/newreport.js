@@ -9,28 +9,38 @@
  */
 angular.module('ramesApp')
   .controller('NewreportCtrl', function ($scope, $location, $http) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
 
-    var baseUrl = "http://localhost:8000";
+    // var baseUrl = "http://localhost:8000";
 
-    $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")
-      .then(function (response) {
-        $scope.categories = response.data;
-      });
+    // var reporttypeID = 1;
 
-    $http.get(baseUrl + "/api/ramesquestion")
-      .then(function (response) {
-        $scope.questions = response.data;
-      });
+    // $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")
+    //   .then(function (response) {
+    //     $scope.categories = response.data;
+    //   });
 
-    $http.get(baseUrl + "/api/ramesinfo")
-      .then(function (response) {
-        $scope.ramesinfo = response.data;
-      });
+    // $http.get(baseUrl + "/api/ramesquestion")
+    //   .then(function (response) {
+    //     $scope.questions = response.data;
+    //   });
+
+    // $http.get(baseUrl + "/api/ramesinfo")
+    //   .then(function (response) {
+    //     $scope.ramesinfo = response.data;
+    //   });
+    
+    // $scope.reportName = {
+    //   "userID": 2,
+    //   "reporttypeID": reporttypeID
+    // };
+
+    // $scope.info;
+
+    // $scope.save = function(reportName) {
+    //   $http.post(baseUrl + "/api/reports", reportName);
+    //   console.log('success');
+    // }
+    
 
 
   });

@@ -25,6 +25,40 @@
     <p>There are no reports to display.
       <p>
   </div>
-  <a ng-href="#/newReport"><button class="btn btn-default frontpage btn-xs" ng-click="deleteReport()">
+  <!--<a ng-href="#/newReport"><button class="btn btn-default frontpage btn-xs" ng-click="deleteReport()">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+  </button></a>-->
+
+  <a><button data-toggle="modal" data-target="#myModal" class="btn btn-default frontpage btn-xs">
     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
   </button></a>
+
+
+  
+<ul ng-repeat="(key, report) in reports">
+  {{key}} ... {{report}}
+</ul>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Report name</h4>
+        </div>
+        <div class="modal-body">
+          <label>Report Name:</label>
+              {{reportName.name}}
+              <input ng-model="reportName.name" class="form-control" type="text" />
+        </div>
+        <div class="modal-footer">
+          <button ng-href="#/" type="button" class="btn btn-default" ng-click="save(reportName)" data-dismiss="modal">Save</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
