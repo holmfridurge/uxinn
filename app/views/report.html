@@ -1,49 +1,49 @@
-<div ng-app="ramesApp" ng-controller="NewreportCtrl">
+<div ng-app="ramesApp" ng-controller="ReportCtrl">
   <form novalidate>
     <div class="just-sec">
       <div class="container">
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
             <div class="form-group">
-              <label>Report Name:</label>
-              {{reportName.name}}
-              <input ng-model="reportName.name" class="form-control" type="text" />
+              <label>Report Name:</label> {{reportName}}
+              <input ng-model="reportName" class="form-control" type="text" />
             </div>
             <ul ng-repeat="category in categories">
+                  <label>{{info.Name}}</label>
               <label>{{category.category}}</label>
               <ul ng-repeat="info in ramesinfo">
                 <ul ng-if="info.CategoryID == category.ID">
-                  <label>{{info.Name}}</label>
                   <ul ng-repeat="question in questions">
                     <ul ng-if="question.RamesInfoID == info.ID">
                       <label>{{question.QuestionNr}}. {{question.Question}}</label>
-                      <ul ng-if="question.Type == 'num'">
-                        <div class="form-group">
-                          {{reportInfo | json}}
-                          <input ng-model="reportInfo.Answer[question.ID]" type="number" class="form-control">
-                          <!--<input type="hidden" ng-model="reportInfo.QuestionID" ng-init="reportInfo.QuestionID=question.ID"/>-->
+                      <div ng-repeat="x in reportIDInfo">
+                        <div ng-if="x.QuestionID == question.ID">
+                          <ul ng-if="question.Type == 'num'">
+                            <div class="form-group">
+                              <input ng-model="x.Answer" type="number" class="form-control">
+                            </div>
+                          </ul>
+                          <ul ng-if="question.Type == 'text'">
+                            {{x.Answer}}
+                            <div class="form-group">
+                              <textarea ng-model="x.Answer" class="form-control" rows="5"></textarea>
+                            </div>
+                          </ul>
+                          <ul ng-if="question.Type == 'yesno'">
+                            {{x.Answer}}
+                            <input ng-model="x.Answer" type="radio" value='y'> Yes
+                            <input ng-model="x.Answer" type="radio" value='n'> No
+                          </ul>
                         </div>
-                      </ul>
-                      <ul ng-if="question.Type == 'text'">
-                        <div class="form-group">
-                          {{reportInfo | json}}
-                          <textarea ng-model="reportInfo.Answer[question.ID]" class="form-control" rows="5"></textarea>
-                        </div>
-                      </ul>
-                      {{reportInfo | json}}
-                      <ul ng-if="question.Type == 'yesno'">
-                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='y'> Yes
-                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='n'> No
-                      </ul>
+                      </div>
                     </ul>
                   </ul>
                 </ul>
               </ul>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a class="btn btn-info btn-lg" ng-click="save(reportName)">Save</a><br>
-            <a class="btn btn-info btn-lg">Preview</a><br>
+            <a class="btn btn-info btn-lg" ng-click="saveInfo(reportInfo)">Save</a><br>
+            <a class="btn btn-info btn-lg" ng-click="questionsInReport()">Preview</a><br>
             <a class="btn btn-info btn-lg">Back to list</a><br>
             <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
           </div>
@@ -53,3 +53,6 @@
   </form>
 </div>
 
+<ul ng-repeat="x in reportIDInfo">
+  {{x}}
+</ul>

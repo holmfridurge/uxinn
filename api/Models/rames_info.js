@@ -72,7 +72,7 @@ function RamesInfo() {
   // Update specific rames information
   this.update = function(report, res) {
     connection.acquire(function(err, con) {
-      con.query('update rames_info set ? where id = ?', [report, report.id], function(err, result) {
+      con.query('update rames_info set ? where id = ?', [report, report.ID], function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Rames information update failed'});

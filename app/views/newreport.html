@@ -4,11 +4,9 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-
             <div class="form-group">
               <label>Report Name:</label>
-              {{reportName.name}}
-              <input ng-model="reportName.name" class="form-control" type="text" />
+              <input ng-model="reportName.Name" class="form-control" type="text" ng-init="reportName.Name = ''" />
             </div>
             <ul ng-repeat="category in categories">
               <label>{{category.category}}</label>
@@ -20,26 +18,29 @@
                       <label>{{question.QuestionNr}}. {{question.Question}}</label>
                       <ul ng-if="question.Type == 'num'">
                         <div class="form-group">
-                          {{reportInfo | json}}
-                          <input ng-model="reportInfo.Answer" type="number" class="form-control">
+                          <input ng-model="reportInfo['Answer'][question.ID]" type="number" class="form-control" ng-init="reportInfo.Answer[question.ID] = ''">                          
                         </div>
                       </ul>
                       <ul ng-if="question.Type == 'text'">
                         <div class="form-group">
-                          <textarea class="form-control" rows="5"></textarea>
+                          <textarea ng-model="reportInfo.Answer[question.ID]" class="form-control" rows="5" ng-init="reportInfo.Answer[question.ID] = ''"></textarea>                        
                         </div>
                       </ul>
                       <ul ng-if="question.Type == 'yesno'">
-                        <input type="radio" value='y'> Yes
-                        <input type="radio" value='n'> No
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='y' ng-init="reportInfo.Answer[question.ID] = ''"> Yes
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='n'> No
                       </ul>
+                      <!--<ul ng-if="question.Type == 'yesno'">
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='y' ng-init="reportInfo.Answer[question.ID] = ''"> Yes
+                        <input ng-model="reportInfo.Answer[question.ID]" type="radio" value='n'> No
+                      </ul>-->
                     </ul>
                   </ul>
                 </ul>
               </ul>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a class="btn btn-info btn-lg" ng-click="save(reportName)">Save</a><br>
+            <a class="btn btn-info btn-lg" ng-click="saveInfo(reportInfo, reportName)">Save</a><br>
             <a class="btn btn-info btn-lg">Preview</a><br>
             <a class="btn btn-info btn-lg">Back to list</a><br>
             <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
