@@ -43,11 +43,11 @@ angular.module('ramesApp')
     $http.get(baseUrl + "/api/questionradiochoices/")
       .then(function(response) {
         $scope.radioChoices = response.data;
+
       });
 
 
     // -------------------- functions --------------------
-
     $scope.reportName = {
       "userID": 2,
       "reporttypeID": reporttypeID
@@ -59,6 +59,18 @@ angular.module('ramesApp')
     };
 
     // ----------- report stuff
+
+    $scope.getNumber = function(num) {
+      console.log(num);
+      var ratings = []; 
+
+      for (var i = 1; i < num+1; i++) { 
+        ratings.push(i)
+      } 
+
+      console.log(ratings);
+      return ratings;
+    }
 
     $scope.resetValue = function(questionID) {
       $scope.reportInfo.Answer[questionID]['Text'] = '';
