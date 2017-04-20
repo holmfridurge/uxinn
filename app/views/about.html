@@ -1,7 +1,53 @@
-<div class="container ">
+<!--<div class="container ">
   <div class="row">
     <div class="just-txt-div text-center">
       <h3><img src="/images/rames2.png"></h3>
     </div>
   </div>
+</div>-->
+
+
+
+<div ng-app="ramesApp" ng-controller="AboutCtrl">
+  <form novalidate>
+    <div class="just-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            <div class="form-group">
+              <label>Report Name:</label>
+              <input ng-model="reportName.Name" class="form-control" type="text" ng-init="reportName.Name = ''" />
+            </div>
+            <ul ng-repeat="category in categories">
+              <label>{{category.category}}</label>
+              <ul ng-repeat="info in ramesinfo">
+                <ul ng-if="info.CategoryID == category.ID">
+                  <label>{{info.Name}}</label>
+                  <ul ng-repeat="question in questions">
+                    <ul ng-if="question.RamesInfoID == info.ID">
+                      <label>{{question.QuestionNr}}. {{question.Question}}</label>
+                      {{reportInfo}}
+                      <ul ng-if="question.Type == 'conditionalyesnotext'">
+                        <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='y' ng-init="reportInfo.Answer[question.ID][$index] = ''"> Yes
+                        <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='n' ng-click="resetValue(question.ID)"> No
+                        <select ng-show="reportInfo.Answer[question.ID][$index] == 'y'" ng-model="reportInfo.Answer[question.ID]['Text'][$index]" ng-init="reportInfo.Answer[question.ID]['Text'][$index] = ''">
+                          <option value=""> --- Choose --- </option>
+                          <option ng-show="ch.QuestionID == question.ID" ng-repeat="ch in dropdownChoices"> {{ch.Choice}} </option>
+                        </select>
+                      </ul>
+                    </ul>
+                  </ul>
+                </ul>
+              </ul>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
+            <a class="btn btn-info btn-lg" ng-click="saveInfo(reportInfo, reportName)">Save</a><br>
+            <a class="btn btn-info btn-lg">Preview</a><br>
+            <a class="btn btn-info btn-lg">Back to list</a><br>
+            <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

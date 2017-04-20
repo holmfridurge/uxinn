@@ -4,6 +4,11 @@ var report = require('./Models/reports');
 var reportType = require('./Models/reports_type');
 var reportInfo = require('./Models/reports_info');
 
+var checkboxChoices = require('./Models/question_checkbox_choices');
+var dropdownChoices = require('./Models/question_dropdown_choices');
+var radioChoices = require('./Models/question_radio_choices');
+
+
 var ramesInfo = require('./Models/rames_info');
 var ramesQuestion = require('./Models/rames_questions');
 var ramesCategory = require('./Models/rames_category');
@@ -354,27 +359,27 @@ module.exports = {
 
     // Returns a list of all question radio choices
     app.get('/api/questionradiochoices/', function(req, res) {
-      language.get(res);
+      radioChoices.get(res);
     });
 
     // Returns the info of a question radio choice with the given id
     app.get('/api/questionradiochoices/:id/', function(req, res) {
-      language.getRadioChoiceByID(req.params.id, res);
+      radioChoices.getRadioChoiceByID(req.params.id, res);
     });
 
     // Adds a new question radio choices to the database
     app.post('/api/questionradiochoices/', function(req, res) {
-      language.create(req.body, res);
+      radioChoices.create(req.body, res);
     });
     
     // Updates the question radio choices
     app.put('/api/questionradiochoices/', function(req, res) {
-      language.update(req.body, res);
+      radioChoices.update(req.body, res);
     });
     
     // Deletes the question radio choice with the given id
     app.delete('/api/questionradiochoices/:id/', function(req, res) {
-      language.delete(req.params.id, res);
+      radioChoices.delete(req.params.id, res);
     });
 
 
@@ -384,27 +389,27 @@ module.exports = {
 
     // Returns a list of all question checkbox choices
     app.get('/api/questioncheckboxchoices/', function(req, res) {
-      language.get(res);
+      checkboxChoices.get(res);
     });
 
     // Returns the info of a question checkbox choices with the given id
     app.get('/api/questioncheckboxchoices/:id/', function(req, res) {
-      language.getRadioChoiceByID(req.params.id, res);
+      checkboxChoices.getCheckboxChoiceByID(req.params.id, res);
     });
 
     // Adds a new question checkbox choices to the database
     app.post('/api/questioncheckboxchoices/', function(req, res) {
-      language.create(req.body, res);
+      checkboxChoices.create(req.body, res);
     });
     
     // Updates the question checkbox choices
     app.put('/api/questioncheckboxchoices/', function(req, res) {
-      language.update(req.body, res);
+      checkboxChoices.update(req.body, res);
     });
     
     // Deletes the question checkbox choice with the given id
     app.delete('/api/questioncheckboxchoices/:id/', function(req, res) {
-      language.delete(req.params.id, res);
+      checkboxChoices.delete(req.params.id, res);
     });
 
 
@@ -414,27 +419,27 @@ module.exports = {
 
     // Returns a list of all question dropdown choices
     app.get('/api/questiondropdownchoices/', function(req, res) {
-      language.get(res);
+      dropdownChoices.get(res);
     });
 
     // Returns the info of a question dropdown choices with the given id
     app.get('/api/questiondropdownchoices/:id/', function(req, res) {
-      language.getRadioChoiceByID(req.params.id, res);
+      dropdownChoices.getDropdownChoiceByID(req.params.id, res);
     });
 
     // Adds a new question dropdown choices to the database
     app.post('/api/questiondropdownchoices/', function(req, res) {
-      language.create(req.body, res);
+      dropdownChoices.create(req.body, res);
     });
     
     // Updates the question dropdown choices
     app.put('/api/questiondropdownchoices/', function(req, res) {
-      language.update(req.body, res);
+      dropdownChoices.update(req.body, res);
     });
     
     // Deletes the question dropdown choice with the given id
     app.delete('/api/questiondropdownchoices/:id/', function(req, res) {
-      language.delete(req.params.id, res);
+      dropdownChoices.delete(req.params.id, res);
     });
   }
 };

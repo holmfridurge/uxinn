@@ -38,6 +38,21 @@ angular.module('ramesApp')
         $scope.reportIDInfo = response.data;
       });
 
+    $http.get(baseUrl + "/api/questiondropdownchoices/")
+      .then(function(response) {
+        $scope.dropdownChoices = response.data;
+      });
+
+    $http.get(baseUrl + "/api/questioncheckboxchoices/")
+      .then(function(response) {
+        $scope.checkboxChoices = response.data;
+      });
+
+    $http.get(baseUrl + "/api/questionradiochoices/")
+      .then(function(response) {
+        $scope.radioChoices = response.data;
+      });
+
     // -------------------- functions --------------------
 
     $scope.reportName = {
@@ -45,14 +60,16 @@ angular.module('ramesApp')
       "reporttypeID": reporttypeID
     };
 
-
-
-
     $scope.reportInfo = {
       "ReportID": $scope.reportID
     };
 
 
+    $scope.resetValue = function(questionID) {
+      $scope.reportInfo.Answer[questionID]['Text'] = '';
+      console.log($scope.reportInfo.Answer[questionID]['Text']);
+    };
+    
 
     $scope.save = function(reportName) {
       $http.post(baseUrl + "/api/reports", reportName);
