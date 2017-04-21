@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <div class="form-group">
-              <label>Report Name:</label> {{reportName}}
+              <label>Report Name:</label>
               <input ng-model="reportName" class="form-control" type="text" />
             </div>
             <ul ng-repeat="category in categories">
@@ -24,13 +24,11 @@
                             </div>
                           </ul>
                           <ul ng-if="question.Type == 'text'">
-                            {{x.Answer}}
                             <div class="form-group">
                               <textarea ng-model="x.Answer" class="form-control" rows="5"></textarea>
                             </div>
                           </ul>
                           <ul ng-if="question.Type == 'yesno'">
-                            {{x.Answer}}
                             <input ng-model="x.Answer" type="radio" value='y'> Yes
                             <input ng-model="x.Answer" type="radio" value='n'> No
                           </ul>

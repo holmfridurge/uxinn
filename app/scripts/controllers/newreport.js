@@ -70,42 +70,48 @@ angular.module('ramesApp')
       console.log($scope.reportInfo.Answer[questionID]['Text']);
     };
     
-
-    $scope.save = function(reportName) {
-      $http.post(baseUrl + "/api/reports", reportName);
-      console.log('success');
-    };
-
-
-
     $scope.saveInfo = function(reportInfo, reportName) {
       
       $http.post(baseUrl + "/api/reports", reportName)
         .then(function(response) {
-          console.log("response: " + JSON.stringify(response));
+          $scope.reportID = response.data;
+
+          var length = Object.keys(reportInfo['Answer']).length;
+          var keys = Object.keys(reportInfo['Answer']);
+          
+
+          for(var i = 0; i < length; i++) {
+            console.log("typeof answer " + typeof(reportInfo['Answer'][keys[i]]))
+            if(typeof(reportInfo['Answer'][keys[i]]) == 'object') {
+              // var bla = JSON.parse(angular.toJson(reportInfo['Answer'][keys[i]]));
+              var answer = {
+                "ReportID": $scope.reportID,
+                "QuestionID": keys[i],
+                "Answer": JSON.stringify(reportInfo['Answer'][keys[i]])
+              }
+              // var keys2 = Object.keys(bla);
+              // var length2 = Object.keys(bla).length;
+              // for(var j = 0; j < length2; j++) {
+              //   if(bla[])
+              //   console.log("bla " + bla[keys2[j]]);
+              // }
+
+            } else {
+              var answer = {
+                "ReportID": $scope.reportID,
+                "QuestionID": keys[i],
+                "Answer": reportInfo['Answer'][keys[i]]
+              }
+            };
+
+            console.log("answer " + angular.toJson(answer));
+
+            $http.post(baseUrl + "/api/reportsInfo", answer);
+          }
+
+          window.location.href = "#/reports/" + $scope.reportID;
         });
-
-      // angular.forEach(reportInfo, function(value, index) {
-      //    console.log(value);
-      // });
-
-      // var length = Object.keys(reportInfo['Answer']).length;
-      // var keys = Object.keys(reportInfo['Answer']);
       
-      
-
-      // for(var i = 0; i < length; i++) {
-      //   var answer = {
-      //     "ReportID": $scope.reportID,
-      //     "QuestionID": keys[i],
-      //     "Answer": reportInfo['Answer'][keys[i]]
-      //   };
-
-      //   console.log("answer " + angular.toJson(answer));
-
-      //   $http.post(baseUrl + "/api/reportsInfo", answer);
-      //   console.log("blabla " + reportInfo['Answer'][keys[i]]);
-      // }
     };
 
   });

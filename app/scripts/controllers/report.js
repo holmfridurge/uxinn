@@ -15,7 +15,11 @@ angular.module('ramesApp')
     
     var baseUrl = "http://localhost:8000";
 
-    var reporttypeID = 1;
+    var reporttypeID = 1;    
+
+    if (window.location.href.substr(-2) !== '?r') {
+    window.location = window.location.href + '?r';
+}
 
     // -------------------- http requests --------------------
     $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")

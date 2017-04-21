@@ -62,14 +62,8 @@ function Report() {
         if (err) {
           res.send({ status: 412, message: 'Report creation failed' });
         } else {
-          res.send(data);
-          console.log("report: " + JSON.stringify(report) + "\n");
-          //console.log("res: " + JSON.stringify(res) + "\n");
-          console.log("err: " + JSON.stringify(err) + "\n");
-          //console.log("con: " + JSON.stringify(con) + "\n");
-          console.log("result: " + JSON.stringify(result) + "\n");
-          //console.log("data: " + JSON.stringify(data) + "\n");
-          //res.send({status: 200, message: 'Report created successfully'});
+          var headerResult = JSON.parse(JSON.stringify(result));
+          res.json(headerResult['insertId']);
         }
       });
     });
