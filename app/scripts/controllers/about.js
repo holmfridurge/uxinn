@@ -10,9 +10,12 @@
 angular.module('ramesApp')
   .controller('AboutCtrl',  function ($scope, $location, $http) {
 
+    $scope.reportID = 65;
+    //$scope.reportID = $routeParams.reportID;
+    
     var baseUrl = "http://localhost:8000";
 
-    var reporttypeID = 1;
+    var reporttypeID = 1;    
 
     // -------------------- http requests --------------------
     $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")
@@ -30,6 +33,43 @@ angular.module('ramesApp')
         $scope.ramesinfo = response.data;
       });
 
+    function isJson(str) {
+      try {
+        JSON.parse(str);
+      } catch (e) {
+        return false;
+      }
+      return true;
+    }
+
+    $http.get(baseUrl + "/api/reportsinfo/report/" + $scope.reportID)
+      .then(function(response) {
+        $scope.reportInfo = response.data;
+
+        angular.forEach($scope.reportInfo, function(data) {
+          if($.isNumeric(data.Answer)) {
+            data.Answer = parseInt(data.Answer);
+          }
+          else if (isJson(data.Answer)) {
+            data.Answer = JSON.parse(data.Answer);
+            var keys = Object.keys(data.Answer);
+
+           angular.forEach($scope.questions, function(question) {
+            if(data.QuestionID == question.ID) {
+              if(question.Type == 'conditionalyesnotext') {
+                data.Answer = Object.values(data.Answer);
+              }
+            }
+           });
+          }
+        });
+      });
+
+    $http.get(baseUrl + "/api/reports/" + $scope.reportID)
+      .then(function(response) {
+        $scope.reportName = response.data[0]['Name'];
+      });
+
     $http.get(baseUrl + "/api/questiondropdownchoices/")
       .then(function(response) {
         $scope.dropdownChoices = response.data;
@@ -43,38 +83,61 @@ angular.module('ramesApp')
     $http.get(baseUrl + "/api/questionradiochoices/")
       .then(function(response) {
         $scope.radioChoices = response.data;
-
       });
 
-
+      
+    
     // -------------------- functions --------------------
-    $scope.reportName = {
-      "userID": 2,
-      "reporttypeID": reporttypeID
-    };
+    $scope.questionsInReport = function() {
+      $scope.rep = [];
+      angular.forEach($scope.reportInfo, function(value, index) {
+        //$scope.rep.push(data.QuestionID + ': ' + data.Answer);
+        $scope.rep.push(value.Answer);
+      });
+
+        $scope.repo2 = {
+          "ReportID": $scope.reportID,
+          "Answer": $scope.repo2
+        }
+
+        $scope.repo3 = angular.toJson($scope.reportInfo[1]['Answer']);
+    }
 
     $scope.reportInfo = {
-      "ReportID": $scope.reportID,
-      //"Answer": {}
+      "ReportID": $scope.reportID
     };
 
-    // ----------- report stuff
-
-    $scope.getNumber = function(num) {
-      console.log(num);
-      var ratings = []; 
-
-      for (var i = 1; i < num+1; i++) { 
-        ratings.push(i)
-      } 
-
-      console.log(ratings);
-      return ratings;
-    }
 
     $scope.resetValue = function(questionID) {
-      $scope.reportInfo.Answer[questionID]['Text'] = '';
-      console.log($scope.reportInfo.Answer[questionID]['Text']);
-    }
+      angular.forEach($scope.reportInfo, function(value) {
+        if(value.QuestionID == questionID) {
+          value.Answer[1] = '';
+        }
+      });
+    };
+
+    // $scope.updateInfo = function(reportInfo) {
+    //   angular.forEach(reportInfo, function(value, index) {
+    //      console.log(value);
+    //   });
+
+    //   var length = Object.keys(reportInfo['Answer']).length;
+    //   var keys = Object.keys(reportInfo['Answer']);
+      
+    //   for(var i = 0; i < length; i++) {
+    //     var answer = {
+    //       "ReportID": $scope.reportID,
+    //       "QuestionID": keys[i],
+    //       "Answer": reportInfo['Answer'][keys[i]]
+    //     };
+
+    //     console.log("answer " + angular.toJson(answer));
+
+    //     $http.post(baseUrl + "/api/reportsInfo", answer);
+    //     console.log("blabla " + reportInfo['Answer'][keys[i]]);
+    //   }
+
+    //   console.log("report info " + angular.toJson(reportInfo));
+    // };
 
   });
