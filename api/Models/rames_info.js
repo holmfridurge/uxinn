@@ -3,6 +3,34 @@ var connection = require('../connection');
 // READY BUT NEEDS TO TEST BETTER
 
 function RamesInfo() {
+
+  // Helper function - creates the update sql query
+  var createUpdateSQL = function(table, data) {
+    try {
+        var values = "";
+        var length = Object.keys(data).length;
+        var count = 0;
+        for(d in data) {
+          count += 1;
+          if(count == length) {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + " ";
+            } else {
+              values += "" + d + " = '" + data[d] + "' ";            
+            } 
+          } else {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + ", ";
+            } else {
+              values += "" + d + " = '" + data[d] + "', ";
+            }
+          }
+        }
+      } catch(e) {}
+
+      return sqlQuery = "update " + table + " set " + values + "where ID = " + data.ID;
+  }
+
   // Get all rames information
   this.get = function(res) {
     connection.acquire(function(err, con) {
@@ -56,9 +84,9 @@ function RamesInfo() {
   };
 
   // Add rames information
-  this.create = function(report, res) {
+  this.create = function(info, res) {
     connection.acquire(function(err, con) {
-      con.query('insert into rames_info set ?', report, function(err, result) {
+      con.query('insert into rames_info set ?', info, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Rames information creation failed'});
@@ -70,9 +98,11 @@ function RamesInfo() {
   };
 
   // Update specific rames information
-  this.update = function(report, res) {
+  this.update = function(info, res) {
     connection.acquire(function(err, con) {
-      con.query('update rames_info set ? where id = ?', [report, report.ID], function(err, result) {
+      var sqlQuery = createUpdateSQL("rames_info", info);
+
+      con.query(sqlQuery, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Rames information update failed'});

@@ -54,18 +54,21 @@
                         </div>
                       </ul>
                       <ul ng-if="question.Type == 'dropdown'">
-                        <select ng-model="reportInfo.Answer[question.ID]" ng-init="reportInfo.Answer[question.ID] = ''">
+                        <select ng-model="reportInfo.Answer[question.ID][$index]" ng-init="reportInfo.Answer[question.ID] = ''">
                           <option value=""> --- Choose --- </option>
                           <option ng-show="ch.QuestionID == question.ID" ng-repeat="ch in dropdownChoices"> {{ch.Choice}} </option>
                         </select>
+                        <textarea style="width:100% !important;" ng-model="reportInfo.Answer[question.ID]['Textbox'][$index]" class="form-control" rows="5" columns="10" ng-init="reportInfo.Answer[question.ID]['Textbox'][$index] = ''"></textarea>
                       </ul>
                       <ul ng-if="question.Type == 'conditionalyesnotext'">
+                        {{reportInfo}}
                         <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='y' ng-init="reportInfo.Answer[question.ID][$index] = ''"> Yes
                         <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='n' ng-click="resetValue(question.ID)"> No
                         <select ng-show="reportInfo.Answer[question.ID][$index] == 'y'" ng-model="reportInfo.Answer[question.ID]['Text'][$index]" ng-init="reportInfo.Answer[question.ID]['Text'][$index] = ''">
                           <option value=""> --- Choose --- </option>
                           <option ng-show="ch.QuestionID == question.ID" ng-repeat="ch in dropdownChoices"> {{ch.Choice}} </option>
                         </select>
+                        <textarea ng-show="reportInfo.Answer[question.ID][$index] == 'y'" style="width:100% !important;" ng-model="reportInfo.Answer[question.ID]['Textbox'][$index]" class="form-control" rows="5" columns="10" ng-init="reportInfo.Answer[question.ID]['Textbox'][$index] = ''"></textarea>
                       </ul>
                     </ul>
                   </ul>

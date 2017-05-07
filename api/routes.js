@@ -284,6 +284,10 @@ module.exports = {
       reportInfo.delete(req.params.id, res);
     });
 
+    app.delete('/api/reportsinfo/report/:reportID/', function(req, res) {
+      reportInfo.deleteReportInfoInReport(req.params.reportID, res);
+    });
+
     // --------------------------------------------
     // --------------- reports type ---------------
     // --------------------------------------------

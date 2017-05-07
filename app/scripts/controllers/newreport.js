@@ -83,19 +83,11 @@ angular.module('ramesApp')
           for(var i = 0; i < length; i++) {
             console.log("typeof answer " + typeof(reportInfo['Answer'][keys[i]]))
             if(typeof(reportInfo['Answer'][keys[i]]) == 'object') {
-              // var bla = JSON.parse(angular.toJson(reportInfo['Answer'][keys[i]]));
               var answer = {
                 "ReportID": $scope.reportID,
                 "QuestionID": keys[i],
                 "Answer": JSON.stringify(reportInfo['Answer'][keys[i]])
               }
-              // var keys2 = Object.keys(bla);
-              // var length2 = Object.keys(bla).length;
-              // for(var j = 0; j < length2; j++) {
-              //   if(bla[])
-              //   console.log("bla " + bla[keys2[j]]);
-              // }
-
             } else {
               var answer = {
                 "ReportID": $scope.reportID,

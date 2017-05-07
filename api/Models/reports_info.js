@@ -3,6 +3,34 @@ var connection = require('../connection');
 // READY BUT NEEDS TO TEST BETTER
 
 function ReportsInfo() {
+
+  // Helper function - creates the update sql query
+  var createUpdateSQL = function(table, data) {
+    try {
+        var values = "";
+        var length = Object.keys(data).length;
+        var count = 0;
+        for(d in data) {
+          count += 1;
+          if(count == length) {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + " ";
+            } else {
+              values += "" + d + " = '" + data[d] + "' ";            
+            } 
+          } else {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + ", ";
+            } else {
+              values += "" + d + " = '" + data[d] + "', ";
+            }
+          }
+        }
+      } catch(e) {}
+
+      return sqlQuery = "update " + table + " set " + values + "where ID = " + data.ID;
+  }
+
   // Get all report information
   this.get = function(res) {
     connection.acquire(function(err, con) {
@@ -70,9 +98,9 @@ function ReportsInfo() {
   };
 
   // Add report information
-  this.create = function(report, res) {
+  this.create = function(info, res) {
     connection.acquire(function(err, con) {
-      con.query('insert into reports_info set ?', report, function(err, result) {
+      con.query('insert into reports_info set ?', info, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Report information creation failed'});
@@ -84,9 +112,11 @@ function ReportsInfo() {
   };
 
   // Update specific report information
-  this.update = function(report, res) {
+  this.update = function(info, res) {
     connection.acquire(function(err, con) {
-      con.query('update reports_info set ? where id = ?', [report, report.id], function(err, result) {
+      var sqlQuery = createUpdateSQL("reports_info", info);
+
+      con.query(sqlQuery, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Report information update failed'});
@@ -110,6 +140,19 @@ function ReportsInfo() {
       });
     });
   };
+
+  this.deleteReportInfoInReport = function(reportID, res) {
+    connection.acquire(function(err, con) {
+      con.query('delete from reports_info where ReportID = ?', [reportID], function (err, result) {
+        con.release();
+        if (err) {
+          res.send({ status: 404, message: 'Failed to delete' });
+        } else {
+          res.send({ status: 200, message: 'Deleted successfully' });
+        }
+      });
+    })
+  }
 
   
 }

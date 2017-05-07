@@ -3,6 +3,34 @@ var connection = require('../connection');
 // READY BUT NEEDS TO TEST BETTER
 
 function ReportsCategory() {
+
+  // Helper function - creates the update sql query
+  var createUpdateSQL = function(table, data) {
+    try {
+        var values = "";
+        var length = Object.keys(data).length;
+        var count = 0;
+        for(d in data) {
+          count += 1;
+          if(count == length) {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + " ";
+            } else {
+              values += "" + d + " = '" + data[d] + "' ";            
+            } 
+          } else {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + ", ";
+            } else {
+              values += "" + d + " = '" + data[d] + "', ";
+            }
+          }
+        }
+      } catch(e) {}
+
+      return sqlQuery = "update " + table + " set " + values + "where ID = " + data.ID;
+  }
+
   // Get all rames category
   this.get = function(res) {
     connection.acquire(function(err, con) {
@@ -88,7 +116,9 @@ function ReportsCategory() {
   // Update specific report information
   this.update = function(data, res) {
     connection.acquire(function(err, con) {
-      con.query('update rames_category set ? where ID = ?', [data, data.ID], function(err, result) {
+      var sqlQuery = createUpdateSQL("rames_category", data);
+
+      con.query(sqlQuery, function(err, result) {
         con.release();
         if (err) {
           res.send({status: 412, message: 'Rames category update failed'});

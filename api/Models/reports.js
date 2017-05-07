@@ -3,6 +3,34 @@ var connection = require('../connection');
 // READY BUT NEEDS TO TEST BETTER
 
 function Report() {
+
+  // Helper function - creates the update sql query
+  var createUpdateSQL = function(table, data) {
+    try {
+        var values = "";
+        var length = Object.keys(data).length;
+        var count = 0;
+        for(d in data) {
+          count += 1;
+          if(count == length) {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + " ";
+            } else {
+              values += "" + d + " = '" + data[d] + "' ";            
+            } 
+          } else {
+            if(data[d] == null) {
+              values += "" + d + " = " + data[d] + ", ";
+            } else {
+              values += "" + d + " = '" + data[d] + "', ";
+            }
+          }
+        }
+      } catch(e) {}
+
+      return sqlQuery = "update " + table + " set " + values + "where ID = " + data.ID;
+  }
+
   // Return all reports that exist
   this.get = function (res) {
     connection.acquire(function (err, con) {
@@ -71,7 +99,10 @@ function Report() {
 
   this.update = function (report, res) {
     connection.acquire(function (err, con) {
-      con.query('update reports set ? where id = ?', [report, report.id], function (err, result) {
+      
+      var sqlQuery = createUpdateSQL("reports", report);
+
+      con.query(sqlQuery, function(err, result) {
         con.release();
         if (err) {
           res.send({ status: 412, message: 'Report update failed' });
@@ -84,12 +115,12 @@ function Report() {
 
   this.delete = function (id, res) {
     connection.acquire(function (err, con) {
-      con.query('delete from reports where id = ?', [id], function (err, result) {
+      con.query('delete from reports where ID = ?', [id], function(err, result) {
         con.release();
         if (err) {
-          res.send({ status: 404, message: 'Failed to delete' });
+          res.send({ status: 412, message: 'Report delete failed' });
         } else {
-          res.send({ status: 200, message: 'Deleted successfully' });
+          res.send({ status: 200, message: 'Report deleted successfully' });
         }
       });
     });

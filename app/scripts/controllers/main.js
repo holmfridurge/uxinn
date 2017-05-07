@@ -33,6 +33,12 @@ angular.module('ramesApp')
       $http.delete(baseUrl + "/api/reports/" + id)
         .then(function (response) {
           console.log("Success");
+          $http.delete(baseUrl + "/api/reportsinfo/report/" + id)
+            .then(function (response) {
+              console.log("Success");
+            }, function(response) {
+              console.log("Error, something bad happened");
+            });
           $scope.refresh();
         }, function (response) {
           console.log("Error, something bad happened");

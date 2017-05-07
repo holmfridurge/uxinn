@@ -10,7 +10,6 @@
 angular.module('ramesApp')
   .controller('ReportCtrl', function ($scope, $routeParams, $location, $http) {
 
-    //$scope.reportID = 62;
     $scope.reportID = $routeParams.reportID;
     
     var baseUrl = "http://localhost:8000";
@@ -51,6 +50,8 @@ angular.module('ramesApp')
       .then(function(response) {
         $scope.reportInfo = response.data;
 
+        console.log(angular.toJson($scope.reportInfo));
+
         angular.forEach($scope.reportInfo, function(data) {
           if($.isNumeric(data.Answer)) {
             data.Answer = parseInt(data.Answer);
@@ -58,22 +59,13 @@ angular.module('ramesApp')
           else if (isJson(data.Answer)) {
             data.Answer = JSON.parse(data.Answer);
             var keys = Object.keys(data.Answer);
-
-           angular.forEach($scope.questions, function(question) {
-            if(data.QuestionID == question.ID) {
-              if(question.Type == 'conditionalyesnotext') {
-                data.Answer = Object.values(data.Answer);
-              }
-            }
-           });
           }
         });
       });
 
     $http.get(baseUrl + "/api/reports/" + $scope.reportID)
       .then(function(response) {
-        $scope.reportName = response.data[0]['Name'];
-        console.log($scope.reportName);
+        $scope.reportName = response.data;
       });
 
     $http.get(baseUrl + "/api/questiondropdownchoices/")
@@ -106,27 +98,46 @@ angular.module('ramesApp')
       });
     };
 
-    $scope.updateInfo = function(reportInfo) {
-      angular.forEach(reportInfo, function(value, index) {
-         console.log(value);
-      });
+    $scope.updateInfo = function(reportInfo, reportName) {
+      $http.put(baseUrl + "/api/reports", reportName)
+        .then(function(response) {
+          
+          //$scope.reportID = response.data;
 
-      var length = Object.keys(reportInfo['Answer']).length;
-      var keys = Object.keys(reportInfo['Answer']);
-      
-      for(var i = 0; i < length; i++) {
-        var answer = {
-          "ReportID": $scope.reportID,
-          "QuestionID": keys[i],
-          "Answer": reportInfo['Answer'][keys[i]]
-        };
+          var length = Object.keys(reportInfo).length;
+          // var keys = Object.keys(reportInfo);
+          // console.log(keys);
+          
+          
 
-        console.log("answer " + angular.toJson(answer));
+          for(var i = 0; i < length; i++) {
+            
+            
+            console.log("key " + reportInfo[i].QuestionID + " info " + angular.toJson(reportInfo[i]));
+            
+            if(typeof(reportInfo[i]) == 'object') {
+              console.log("object ob " + angular.toJson(reportInfo[i].Answer));
+              var answer = {
+                "ID": reportInfo[i].ID,
+                "ReportID": $scope.reportID,
+                "QuestionID": reportInfo[i].QuestionID,
+                "Answer": JSON.stringify(reportInfo[i].Answer)
+              }
+            } else {
+              var answer = {
+                "ID": reportInfo[i].ID,                
+                "ReportID": $scope.reportID,
+                "QuestionID": reportInfo[i].QuestionID,
+                "Answer": reportInfo[i].Answer
+              }
+            };
 
-        $http.post(baseUrl + "/api/reportsInfo", answer);
-        console.log("blabla " + reportInfo['Answer'][keys[i]]);
-      }
+            //console.log("id " + reportInfo[i].ID);
+            console.log("answer " + angular.toJson(answer));
 
-      console.log("report info " + angular.toJson(reportInfo));
+            $http.put(baseUrl + "/api/reportsInfo", answer);
+          };
+
+        });
     };
   });
