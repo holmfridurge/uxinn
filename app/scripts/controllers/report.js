@@ -11,14 +11,14 @@ angular.module('ramesApp')
   .controller('ReportCtrl', function ($scope, $routeParams, $location, $http) {
 
     $scope.reportID = $routeParams.reportID;
-    
+
     var baseUrl = "http://localhost:8000";
 
-    var reporttypeID = 1;    
+    var reporttypeID = 1;
 
     if (window.location.href.substr(-2) !== '?r') {
-    window.location = window.location.href + '?r';
-}
+      window.location = window.location.href + '?r';
+    }
 
     // -------------------- http requests --------------------
     $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")
@@ -47,13 +47,11 @@ angular.module('ramesApp')
     }
 
     $http.get(baseUrl + "/api/reportsinfo/report/" + $scope.reportID)
-      .then(function(response) {
+      .then(function (response) {
         $scope.reportInfo = response.data;
 
-        console.log(angular.toJson($scope.reportInfo));
-
-        angular.forEach($scope.reportInfo, function(data) {
-          if($.isNumeric(data.Answer)) {
+        angular.forEach($scope.reportInfo, function (data) {
+          if ($.isNumeric(data.Answer)) {
             data.Answer = parseInt(data.Answer);
           }
           else if (isJson(data.Answer)) {
@@ -64,80 +62,311 @@ angular.module('ramesApp')
       });
 
     $http.get(baseUrl + "/api/reports/" + $scope.reportID)
-      .then(function(response) {
+      .then(function (response) {
         $scope.reportName = response.data;
       });
 
     $http.get(baseUrl + "/api/questiondropdownchoices/")
-      .then(function(response) {
+      .then(function (response) {
         $scope.dropdownChoices = response.data;
       });
 
     $http.get(baseUrl + "/api/questioncheckboxchoices/")
-      .then(function(response) {
+      .then(function (response) {
         $scope.checkboxChoices = response.data;
       });
 
     $http.get(baseUrl + "/api/questionradiochoices/")
-      .then(function(response) {
+      .then(function (response) {
         $scope.radioChoices = response.data;
       });
-    
-    
-    
+
+
+
     // -------------------- functions --------------------
     $scope.reportInfo = {
       "ReportID": $scope.reportID
     };
 
-    $scope.resetValue = function(questionID) {
-      angular.forEach($scope.reportIDInfo, function(value) {
-        if(value.QuestionID == questionID) {
-          value.Answer[1] = '';
+    $scope.resetValue = function (questionID) {
+      angular.forEach($scope.reportInfo, function (value) {
+        if (value.QuestionID == questionID) {
+          value.Answer['Text'][Object.keys(value.Answer['Text'])] = '';
+          value.Answer['Textbox'][Object.keys(value.Answer['Textbox'])] = '';
         }
       });
     };
 
-    $scope.updateInfo = function(reportInfo, reportName) {
+    $scope.updateInfo = function (reportInfo, reportName) {
+      
       $http.put(baseUrl + "/api/reports", reportName)
-        .then(function(response) {
-          
-          //$scope.reportID = response.data;
+        .then(function (response) {
 
           var length = Object.keys(reportInfo).length;
-          // var keys = Object.keys(reportInfo);
-          // console.log(keys);
-          
-          
 
-          for(var i = 0; i < length; i++) {
-            
-            
-            console.log("key " + reportInfo[i].QuestionID + " info " + angular.toJson(reportInfo[i]));
-            
-            if(typeof(reportInfo[i]) == 'object') {
-              console.log("object ob " + angular.toJson(reportInfo[i].Answer));
-              var answer = {
-                "ID": reportInfo[i].ID,
-                "ReportID": $scope.reportID,
-                "QuestionID": reportInfo[i].QuestionID,
-                "Answer": JSON.stringify(reportInfo[i].Answer)
-              }
-            } else {
-              var answer = {
-                "ID": reportInfo[i].ID,                
-                "ReportID": $scope.reportID,
-                "QuestionID": reportInfo[i].QuestionID,
-                "Answer": reportInfo[i].Answer
-              }
+          $scope.alerts = [
+            { type: 'danger', msg: 'Oh snap! Update failed. Change a few things up and try submitting again.' },
+            { type: 'success', msg: 'Great! Report was updated successfully.' }
+          ];
+
+          try {
+            for (var i = 0; i < length; i++) {
+                console.log(reportInfo[i]);
+                var match = /\r|\n/.exec(reportInfo[i].Answer);
+              if (typeof (reportInfo[i]) == 'object') {
+                if(match) {
+                  var answer = {
+                    "ID": reportInfo[i].ID,
+                    "ReportID": $scope.reportID,
+                    "QuestionID": reportInfo[i].QuestionID,
+                    "Answer": reportInfo[i].Answer
+                  }
+                } else {
+                  var answer = {
+                    "ID": reportInfo[i].ID,
+                    "ReportID": $scope.reportID,
+                    "QuestionID": reportInfo[i].QuestionID,
+                    "Answer": JSON.stringify(reportInfo[i].Answer)
+                  }
+                }
+              } else {
+                var answer = {
+                  "ID": reportInfo[i].ID,
+                  "ReportID": $scope.reportID,
+                  "QuestionID": reportInfo[i].QuestionID,
+                  "Answer": reportInfo[i].Answer
+                }
+              };
+
+              $http.put(baseUrl + "/api/reportsInfo", answer);
+
             };
+            // TODO: Add success alert message box
+          } catch (e) {
+            // TODO: Add error alert message box
+          }
 
-            //console.log("id " + reportInfo[i].ID);
-            console.log("answer " + angular.toJson(answer));
 
-            $http.put(baseUrl + "/api/reportsInfo", answer);
-          };
 
         });
     };
+
+
+    // PDF maker 
+
+    var getLayout = function () {
+            return {
+                hLineWidth: function () {
+                    // up
+                    return 0.1;
+                },
+                vLineWidth: function () {
+                    // down
+                    return 0.1;
+                },
+                hLineColor: function () {
+                    return 'gray';
+                },
+                vLineColor: function () {
+                    return 'gray';
+                }
+            };
+        };
+
+        var getTable = function () {
+            var reportBody = [];
+
+            angular.forEach($scope.categories, function(category) {
+                reportBody.push([{ text: category.category, style: 'categoryBold' }, ""]);
+
+                angular.forEach($scope.ramesinfo, function(info) {
+                    if(info.CategoryID == category.ID) {
+                        var answers = "";
+                        angular.forEach($scope.questions, function(question) {
+                            if(question.RamesInfoID == info.ID) {
+                                angular.forEach($scope.reportInfo, function(answer) {
+                                    if(answer.QuestionID == question.ID) {
+                                      if(answer.Answer != "" && answer.Answer != '0') {
+                                        if(typeof(answer.Answer) == 'object') {
+                                            answers += question.Question + "\n";
+                                            angular.forEach(answer.Answer, function(ans) {
+                                                if(question.Type == 'conditionalyesnotext') {
+                                                    if(ans == "") {
+                                                        answers += "";
+                                                    } else if(ans == "y") {
+                                                        answers += "Yes. ";
+                                                    } else if(ans == "n") {
+                                                        answers += "No. ";
+                                                    } else {
+                                                        angular.forEach(ans, function(an) {
+                                                            if(an == "") {
+                                                                answers += "";
+                                                            } else {
+                                                                answers += an + "\n";
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                                else if(typeof(ans) == 'object') {
+                                                    angular.forEach(ans, function(an) {
+                                                      if(an == "") {
+                                                        answers += "";
+                                                      } else {
+                                                        answers += an + "\n";
+                                                      }
+                                                    });
+                                                } else {
+                                                    answers += ans + "\n";
+                                                }
+                                            });
+                                        } else {
+                                            if(question.Type == 'yesno' && answer.Answer == 'y') {
+                                                answers += question.Question + " Yes \n";
+                                            } else if(question.Type == 'yesno' && answer.Answer == 'n') {
+                                                answers += question.Question + " No \n";
+                                            } else {
+                                                answers += question.Question + " " + answer.Answer + "\n";
+                                            }
+                                        }
+                                      }
+                                    }
+                                });
+                            }
+                        });
+                        reportBody.push([info.Name, answers]);
+                    }
+                });
+            });
+            var rName = $scope.reportName[0]['Name'];
+            return [
+                { text: rName, fontSize: 20, bold: false, alignment: 'center', style: ['lineSpacing', 'headingColor'] },
+                // Line beneath name of report
+                // Name of report
+                { text: '', style: ['doublelineSpacing'] },
+                {
+                    table: {
+                        widths: ['auto', 'auto'],
+                        headerRows: 1,
+                        body: reportBody
+                    }, layout: getLayout()
+                }
+
+            ];
+        };
+
+        $scope.downloadPDF = function (reportInfo, reportName) {
+            $scope.updateInfo(reportInfo, reportName);
+            var docDefinition = {
+                pageMargins: [72, 80, 40, 60],
+                pageSize: 'A4',
+                header: function () {
+                    return {
+                        columns: [
+                            {},
+                            {}
+                        ]
+                    }
+                },
+
+                footer: function (currentPage, pageCount) {
+                    return {
+                        stack: [{ canvas: [{}] },                        
+                        { text: '', margin: [0, 0, 0, 5] },
+                        {
+                            columns: [
+                                {},
+                                {}                                
+                            ]
+                        }]
+
+                    };
+                },
+                content: [
+                    { stack: getTable() }
+                ],
+                styles: {
+                    'lineSpacing': {
+                        margin: [0, 0, 0, 6]
+                    },
+                    'doublelineSpacing': {
+                        margin: [0, 0, 0, 12]
+                    },
+                    'headingColor':
+                    {
+                        color: '#000000'
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 13,
+                        color: '#000000'
+                    },
+                    categoryBold: {
+                        bold: true
+                    }
+                }
+            }
+
+            var date = new Date();
+            date = moment(date).format('DD_MMM_YYYY_HH_mm_ss');
+            pdfMake.createPdf(docDefinition).download($scope.reportName[0].Name + "_" + date + '.pdf');
+
+        };
+
+
+        $scope.previewPDF = function (reportInfo, reportName) {
+          $scope.updateInfo(reportInfo, reportName);
+            var docDefinition = {
+                pageMargins: [72, 80, 40, 60],
+                layout: 'headerLineOnly',
+                pageSize: 'A4',
+                header: function () {
+
+                    return {
+                        columns: [
+                            {},
+                            {}
+                        ]
+                    }
+                },
+
+                footer: function (currentPage, pageCount) {
+                    return {
+                        stack: [{ canvas: [{}] },
+                        { text: '', margin: [0, 0, 0, 5] },
+                        {
+                            columns: [
+                                {}
+                            ]
+                        }]
+
+                    };
+                },
+                content: [
+                    { stack: getTable() }
+                ],
+                styles: {
+                    'lineSpacing': {
+                        margin: [0, 0, 0, 6]
+                    },
+                    'doublelineSpacing': {
+                        margin: [0, 0, 0, 12]
+                    },
+                    'headingColor':
+                    {
+                        color: '#000000'
+                    },
+                    tableHeader: {
+                        bold: true,
+                        fontSize: 13,
+                        color: '#669999'
+                    },
+                    categoryBold: {
+                        bold: true
+                    }
+                }
+            }
+
+            pdfMake.createPdf(docDefinition).open();
+        };
+
   });

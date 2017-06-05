@@ -53,6 +53,10 @@ angular
         controller: 'NewreportCtrl'
         //controllerAs: 'newReport'
       })
+      .when('/pdfReport', {
+        templateUrl: 'views/pdfReport.html',
+        controller: 'pdfReportMaker'
+      })
       .otherwise({
         redirectTo: '/'
       });

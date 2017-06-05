@@ -8,19 +8,21 @@
  * Controller of the ramesApp
  */
 angular.module('ramesApp')
-  .controller('AboutCtrl',  function ($scope, $location, $http) {
-
-    $scope.reportID = 66;
-    // $scope.reportID = $routeParams.reportID;    
+  .controller('AboutCtrl',  function ($scope, $location, $http, $routeParams) {
+    
+   console.log('Inside controller');
+    console.log($routeParams);
+    $scope.reportID = $routeParams.reportID;
     
     var baseUrl = "http://localhost:8000";
 
-    var reporttypeID = 1;    
+    var reporttypeID = 1;
 
-    if (window.location.href.substr(-2) !== '?r') {
-    window.location = window.location.href + '?r';
-}
+    $scope.setTempItem = function(item) {
+        $scope.currentItem = item;
 
+    }
+    
     // -------------------- http requests --------------------
     $http.get(baseUrl + "/api/ramescategory/ordered/sequenceNumber")
       .then(function (response) {
@@ -37,46 +39,9 @@ angular.module('ramesApp')
         $scope.ramesinfo = response.data;
       });
 
-
-    function isJson(str) {
-      try {
-        JSON.parse(str);
-      } catch (e) {
-        return false;
-      }
-      return true;
-    }
-
     $http.get(baseUrl + "/api/reportsinfo/report/" + $scope.reportID)
       .then(function(response) {
-        $scope.reportInfo = response.data;
-
-        console.log(angular.toJson($scope.reportInfo));
-
-        angular.forEach($scope.reportInfo, function(data) {
-          if($.isNumeric(data.Answer)) {
-            data.Answer = parseInt(data.Answer);
-          }
-          else if (isJson(data.Answer)) {
-            data.Answer = JSON.parse(data.Answer);
-            var keys = Object.keys(data.Answer);
-
-          //  angular.forEach($scope.questions, function(question) {
-          //   if(data.QuestionID == question.ID) {
-          //     if(question.Type == 'conditionalyesnotext') {
-          //       var k = Object.keys(data.Answer);
-          //       data.Answer = Object.values(data.Answer);
-          //       data.Answer[1] = data.Answer[1][k[0]];
-          //     }
-          //   }
-          //  });
-          }
-        });
-      });
-
-    $http.get(baseUrl + "/api/reports/" + $scope.reportID)
-      .then(function(response) {
-        $scope.reportName = response.data;
+        $scope.reportIDInfo = response.data;
       });
 
     $http.get(baseUrl + "/api/questiondropdownchoices/")
@@ -93,65 +58,58 @@ angular.module('ramesApp')
       .then(function(response) {
         $scope.radioChoices = response.data;
       });
-    
-    
-    
+
     // -------------------- functions --------------------
+
+    $scope.reportName = {
+      "userID": 2,
+      "reporttypeID": reporttypeID
+    };
+
     $scope.reportInfo = {
       "ReportID": $scope.reportID
     };
 
+
     $scope.resetValue = function(questionID) {
-      angular.forEach($scope.reportIDInfo, function(value) {
-        if(value.QuestionID == questionID) {
-          value.Answer[1] = '';
-        }
-      });
+      $scope.reportInfo.Answer[questionID]['Text'] = '';
+      console.log($scope.reportInfo.Answer[questionID]['Text']);
     };
-
-    $scope.updateInfo = function(reportInfo, reportName) {
-      $http.put(baseUrl + "/api/reports", reportName)
+    
+    $scope.saveInfo = function(reportInfo, reportName) {
+      
+      $http.post(baseUrl + "/api/reports", reportName)
         .then(function(response) {
-          
-          //$scope.reportID = response.data;
+          $scope.reportID = response.data;
 
-          var length = Object.keys(reportInfo).length;
-          // var keys = Object.keys(reportInfo);
-          // console.log(keys);
-          console.log(angular.toJson(reportInfo));
+          var length = Object.keys(reportInfo['Answer']).length;
+          var keys = Object.keys(reportInfo['Answer']);
+          
 
           for(var i = 0; i < length; i++) {
-            
-            // angular.forEach($scope.reportInfo, function(data) {
-            //   angular.forEach($scope.questions, function(question) {
-            //     if(data.QuestionID == question.ID) {
-                  
-            //     }
-            //   });
-            // });
-            // console.log(angular.toJson(reportInfo[i]['Answer']));
-            
-            
-            // console.log("typeof answer " + typeof(reportInfo[0]['Answer'][keys[i]]))
-            // if(typeof(reportInfo[0]['Answer'][keys[i]]) == 'object') {
-            //   var answer = {
-            //     "ReportID": $scope.reportID,
-            //     "QuestionID": keys[i],
-            //     "Answer": JSON.stringify(reportInfo['Answer'][keys[i]])
-            //   }
-            // } else {
-            //   var answer = {
-            //     "ReportID": $scope.reportID,
-            //     "QuestionID": keys[i],
-            //     "Answer": reportInfo['Answer'][keys[i]]
-            //   }
-            // };
+            console.log("typeof answer " + typeof(reportInfo['Answer'][keys[i]]))
+            if(typeof(reportInfo['Answer'][keys[i]]) == 'object') {
+              var answer = {
+                "ReportID": $scope.reportID,
+                "QuestionID": keys[i],
+                "Answer": JSON.stringify(reportInfo['Answer'][keys[i]])
+              }
+            } else {
+              var answer = {
+                "ReportID": $scope.reportID,
+                "QuestionID": keys[i],
+                "Answer": reportInfo['Answer'][keys[i]]
+              }
+            };
 
-            //  console.log("answer " + angular.toJson(answer));
+            console.log("answer " + angular.toJson(answer));
 
-            // $http.put(baseUrl + "/api/reportsInfo", answer);
+            $http.post(baseUrl + "/api/reportsInfo", answer);
           }
+
+          window.location.href = "#/reports/" + $scope.reportID;
         });
+      
     };
 
   });

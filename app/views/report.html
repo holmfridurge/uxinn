@@ -5,7 +5,6 @@
         <div class="row">
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <div class="form-group">
-              {{reportName}}
               <label>Report <Name></Name>:</label>
               <input ng-model="reportName[0]['Name']" class="form-control" type="text" ng-init="reportName.Name = ''" />
             </div>
@@ -42,7 +41,6 @@
                             </div>
                           </ul>
                           <ul ng-if="question.Type == 'dropdown'">
-                            {{ri.Answer}}
                             <label ng-repeat="(key, value) in ri.Answer">
                               <ul ng-if="key != 'Textbox'">
                                 <select ng-model="ri.Answer[key]" ng-init="ri.Answer[key]">
@@ -74,9 +72,10 @@
                           </ul>
                           <ul ng-if="question.Type == 'conditionalyesnotext'">
                             <label ng-repeat="(key, value) in ri.Answer">
-                              <label ng-if="value == 'y' || value == 'n'"> 
-                                <input ng-model="value" type="radio" value='y'> Yes
-                                <input ng-model="value" type="radio" value='n' ng-click="resetValue(question.ID)"> No
+                              {{value}}
+                              <label ng-if="value == 'y' || value == 'n' || ri.Answer[key] == ''"> 
+                                <input ng-model="ri.Answer[key]" type="radio" value='y'> Yes
+                                <input ng-model="ri.Answer[key]" type="radio" value='n' ng-click="resetValue(question.ID)"> No
                               </label>
                               <label>
                                 <select ng-show="value == 'y'" ng-model="ri.Answer['Text'][key]">
@@ -95,9 +94,10 @@
               </ul>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
-            <a class="btn btn-info btn-lg" ng-click="updateInfo(reportInfo, reportName[0])">Save</a><br>
-            <a class="btn btn-info btn-lg">Preview</a><br>
-            <a class="btn btn-info btn-lg">Back to list</a><br>
+            <a id="myWish" href="javascript:;" class="btn btn-info btn-lg" ng-click="updateInfo(reportInfo, reportName[0])">Save</a><br>
+            <a class="btn btn-info btn-lg" ng-click="previewPDF(reportInfo, reportName[0])">Preview</a><br>
+            <a class="btn btn-info btn-lg" ng-click="downloadPDF(reportInfo, reportName[0])">Download</a><br>
+            <a class="btn btn-info btn-lg" href="/#">Back to list</a><br>
             <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
           </div>
         </div>

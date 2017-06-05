@@ -33,7 +33,7 @@
                       <ul ng-if="question.Type == 'radio'">
                         <div ng-repeat="ch in radioChoices">
                           <ul ng-if="ch.QuestionID == question.ID">
-                              <input name="reportInfo.Answer[question.ID]" type="radio" value="{{ch.Choice}}" ng-model="reportInfo.Answer[question.ID]" >
+                              <input name="reportInfo.Answer[question.ID]" type="radio" value="{{ch.Choice}}" ng-init="reportInfo.Answer[question.ID] = ''" ng-model="reportInfo.Answer[question.ID]" >
                                 {{ch.Choice}}
                           </ul>
                         </div>
@@ -61,7 +61,7 @@
                         <textarea style="width:100% !important;" ng-model="reportInfo.Answer[question.ID]['Textbox'][$index]" class="form-control" rows="5" columns="10" ng-init="reportInfo.Answer[question.ID]['Textbox'][$index] = ''"></textarea>
                       </ul>
                       <ul ng-if="question.Type == 'conditionalyesnotext'">
-                        {{reportInfo}}
+                        {{reportInfo.Answer[question.ID]}}
                         <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='y' ng-init="reportInfo.Answer[question.ID][$index] = ''"> Yes
                         <input ng-model="reportInfo.Answer[question.ID][$index]" type="radio" value='n' ng-click="resetValue(question.ID)"> No
                         <select ng-show="reportInfo.Answer[question.ID][$index] == 'y'" ng-model="reportInfo.Answer[question.ID]['Text'][$index]" ng-init="reportInfo.Answer[question.ID]['Text'][$index] = ''">
@@ -77,7 +77,8 @@
           </div>
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-2">
             <a class="btn btn-info btn-lg" ng-click="saveInfo(reportInfo, reportName)">Save</a><br>
-            <a class="btn btn-info btn-lg">Preview</a><br>
+            <a class="btn btn-info btn-lg" ng-click="previewPDF()">Preview</a><br>
+            <a class="btn btn-info btn-lg" ng-click="downloadPDF()">Download</a><br>
             <a class="btn btn-info btn-lg">Back to list</a><br>
             <a class="btn btn-info btn-lg" href="/#">Cancel</a><br>
           </div>
