@@ -71,9 +71,8 @@ h1,h2,h4 {
     background-color:#eeeeee;
 }
 .navbar-inverse {
-background-color: #FFF;
-border-color: rgba(155, 153, 153, 0.23);
-
+    background-color: #FFF;
+    border-color: rgba(155, 153, 153, 0.23);
 }
 
 .navbar {
@@ -85,8 +84,10 @@ border-color: rgba(155, 153, 153, 0.23);
     border-color:transparent;
 }
 .navbar-toggle {
-background-color: black;
-border: 1px solid black;
+    /*background-color: #C8C8C8;
+    border: 1px solid #C8C8C8;*/
+    background-color: #F7F7F7;
+    border: 1px solid #F7F7F7;
 }
 
 

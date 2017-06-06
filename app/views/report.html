@@ -4,6 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <div ng-show="alertType == succ" class="alert alert-success" id="success-alert">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        <strong>Success! </strong>
+                        Report was successfully saved.
+                    </div>
                     <div class="form-group">
                         <label>Report <Name></Name>:</label>
                         <input ng-model="reportName[0]['Name']" class="form-control" type="text" ng-init="reportName.Name = ''" />

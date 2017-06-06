@@ -58,6 +58,15 @@ angular.module('ramesApp')
       csole.log('success' + rep.id);
     }
 
+    $(document).ready (function(){
+        $("#success-alert").hide();
+        $("#succ").click(function showAlert() { 
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+            });
+        });
+    });
     
 
     // COLLAPSE =====================
