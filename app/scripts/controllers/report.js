@@ -82,6 +82,15 @@ angular.module('ramesApp')
       });
 
 
+    $(document).ready (function(){
+        $("#success-alert").hide();
+        $("#succ").click(function showAlert() { 
+            $("#success-alert").alert();
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+            });
+        });
+    });
 
     // -------------------- functions --------------------
     $scope.reportInfo = {
@@ -98,16 +107,10 @@ angular.module('ramesApp')
     };
 
     $scope.updateInfo = function (reportInfo, reportName) {
-      
       $http.put(baseUrl + "/api/reports", reportName)
         .then(function (response) {
 
           var length = Object.keys(reportInfo).length;
-
-          $scope.alerts = [
-            { type: 'danger', msg: 'Oh snap! Update failed. Change a few things up and try submitting again.' },
-            { type: 'success', msg: 'Great! Report was updated successfully.' }
-          ];
 
           try {
             for (var i = 0; i < length; i++) {
@@ -141,9 +144,8 @@ angular.module('ramesApp')
               $http.put(baseUrl + "/api/reportsInfo", answer);
 
             };
-            // TODO: Add success alert message box
           } catch (e) {
-            // TODO: Add error alert message box
+
           }
 
 

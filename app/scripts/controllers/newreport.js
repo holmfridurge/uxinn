@@ -144,17 +144,34 @@ angular.module('ramesApp')
                                       if(answer.Answer != "" && answer.Answer != '0') {
                                         if(typeof(answer.Answer) == 'object') {
                                             answers += question.Question + "\n";
-                                            angular.forEach(answer.Answer, function(an) {
-                                                if(typeof(an) == 'object') {
-                                                    angular.forEach(an, function(a) {
-                                                      if(a == "") {
+                                            angular.forEach(answer.Answer, function(ans) {
+                                                if(question.Type == 'conditionalyesnotext') {
+                                                    if(ans == "") {
+                                                        answers += "";
+                                                    } else if(ans == "y") {
+                                                        answers += "Yes. ";
+                                                    } else if(ans == "n") {
+                                                        answers += "No. ";
+                                                    } else {
+                                                        angular.forEach(ans, function(an) {
+                                                            if(an == "") {
+                                                                answers += "";
+                                                            } else {
+                                                                answers += an + "\n";
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                                else if(typeof(ans) == 'object') {
+                                                    angular.forEach(ans, function(an) {
+                                                      if(an == "") {
                                                         answers += "";
                                                       } else {
-                                                        answers += a + "\n";
+                                                        answers += an + "\n";
                                                       }
                                                     });
                                                 } else {
-                                                    answers += an + "\n";
+                                                    answers += ans + "\n";
                                                 }
                                             });
                                         } else {
@@ -180,56 +197,40 @@ angular.module('ramesApp')
                 { text: rName, fontSize: 20, bold: false, alignment: 'center', style: ['lineSpacing', 'headingColor'] },
                 // Line beneath name of report
                 // Name of report
-                { canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595 - 2 * 40, y2: 5, lineWidth: 1, lineColor: '#990033', style: ['lineSpacing'] }] },
                 { text: '', style: ['doublelineSpacing'] },
                 {
                     table: {
                         widths: ['auto', 'auto'],
                         headerRows: 1,
-                        // keepWithHeaderRows: 1,
                         body: reportBody
-                        // [
-                        //     // ['Project', { text: 'Technology', style: 'tableHeader' }, 'Language', 'Database'],
-                        //     // ['Intranet', 'Microsoft', { text: 'Sharepoint', colSpan: 2 }, {}],
-                        // ]
                     }, layout: getLayout()
                 }
 
             ];
         };
 
-        $scope.downloadPDF = function () {
+        $scope.downloadPDF = function (reportInfo, reportName) {
+            console.log(reportInfo);
             var docDefinition = {
                 pageMargins: [72, 80, 40, 60],
-                layout: 'headerLineOnly',
                 pageSize: 'A4',
                 header: function () {
-                                margin: [50, 20, 5, 5]
-
                     return {
                         columns: [
-                            {
-                                text: 'Csharp',
-                                width: 200,
-                            },
-                            {
-                                stack: [
-                                    { text: 'Project Details', alignment: 'right', fontSize: 12, margin: [0, 30, 50, 0] }
-                                ]
-                            }
+                            {},
+                            {}
                         ]
                     }
                 },
 
                 footer: function (currentPage, pageCount) {
                     return {
-                        stack: [{ canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595, y2: 5, lineWidth: 1, lineColor: '#ffff00', style: ['lineSpacing'] }] },
+                        stack: [{ canvas: [{}] },                        
                         { text: '', margin: [0, 0, 0, 5] },
                         {
                             columns: [
                                 {},
-                                { text: currentPage.toString(), alignment: 'center' },
-                                { text: moment(new Date()).format("DD-MMM-YYYY"), alignment: 'right', margin: [0, 0, 20, 0] }
+                                {}                                
                             ]
                         }]
 
@@ -247,12 +248,12 @@ angular.module('ramesApp')
                     },
                     'headingColor':
                     {
-                        color: '#999966'
+                        color: '#000000'
                     },
                     tableHeader: {
                         bold: true,
                         fontSize: 13,
-                        color: '#669999'
+                        color: '#000000'
                     },
                     categoryBold: {
                         bold: true
@@ -267,7 +268,8 @@ angular.module('ramesApp')
         };
 
 
-        $scope.previewPDF = function () {
+        $scope.previewPDF = function (reportInfo, reportName) {
+          //$scope.saveInfo(reportInfo, reportName);
             var docDefinition = {
                 pageMargins: [72, 80, 40, 60],
                 layout: 'headerLineOnly',
@@ -276,29 +278,19 @@ angular.module('ramesApp')
 
                     return {
                         columns: [
-                            {
-                                text: 'Csharp',
-                                width: 200,
-                                margin: [50, 20, 5, 5]
-                            },
-                            {
-                                stack: [
-                                    { text: 'Project Details', alignment: 'right', fontSize: 12, margin: [0, 30, 50, 0] }
-                                ]
-                            }
+                            {},
+                            {}
                         ]
                     }
                 },
 
                 footer: function (currentPage, pageCount) {
                     return {
-                        stack: [{ canvas: [{ type: 'line', x1: 0, y1: 5, x2: 595, y2: 5, lineWidth: 1, lineColor: '#ffff00', style: ['lineSpacing'] }] },
+                        stack: [{ canvas: [{}] },
                         { text: '', margin: [0, 0, 0, 5] },
                         {
                             columns: [
-                                {},
-                                { text: currentPage.toString(), alignment: 'center' },
-                                { text: moment(new Date()).format("DD-MMM-YYYY"), alignment: 'right', margin: [0, 0, 20, 0] }
+                                {}
                             ]
                         }]
 
@@ -316,7 +308,7 @@ angular.module('ramesApp')
                     },
                     'headingColor':
                     {
-                        color: '#999966'
+                        color: '#000000'
                     },
                     tableHeader: {
                         bold: true,

@@ -4629,6 +4629,9 @@ a.thumbnail.active {
   padding: 9px;
   color: #333;
 }
+.questionSuggestion {
+  font-size: 15px;
+}
 .alert {
   padding: 15px;
   margin-bottom: 20px;
