@@ -3595,6 +3595,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .input-group-btn:last-child > .btn-group {
   margin-left: -1px;
 }
+.bold-collapse {
+  font-weight: bold;
+}
 .nav {
   padding-left: 0;
   margin-bottom: 0;
@@ -4470,6 +4473,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
+}
+a.a-collapse:hover {
+  color: #000;
 }
 a.label:hover,
 a.label:focus {
